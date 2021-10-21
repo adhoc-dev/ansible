@@ -1,0 +1,17 @@
+---
+# Archivo de pruebas para definir variables
+
+# Tipo de usuario:
+es_funcional: true
+es_tecnico: false
+
+# Servidores DNS:
+dns_servers:
+  dns1: "{{ dns1 }}"
+  dns2: "{{ dns2 }}"
+
+# Idioma y región:
+locales_dependencies:
+  - tzdata
+  - locales
+locales_gen_file: "{{ '/var/lib/locales/supported.d/local' if ansible_distribution == 'Ubuntu' else '/etc/locale.gen' }}"

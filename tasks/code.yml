@@ -1,0 +1,16 @@
+---
+- name: install VSCode
+  vars:
+    vscode_extension_list:
+    ## Convert Tool
+     - ahebrank.yaml2json
+     - buianhthang.xml2json
+    
+- name: install a list of extension
+  become: false
+  shell: code --install-extension ahebrank.yaml2json
+
+
+- name: install a list of extension
+  become: false
+  shell: code --install-extension buianhthang.xml2json

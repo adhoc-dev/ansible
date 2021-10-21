@@ -1,0 +1,14 @@
+---
+- name: Editor de texto, colorizer, terminal
+  apt:
+    pkg: ['vim', 'vim-gtk3', 'ccze', 'tmux', 'tmuxp', 'xclip', 'bash-completion']
+
+- name: Instalar dependencias y paquetes para Python
+  apt:
+    pkg: ['ipython3', 'python3-setuptools', 'python-setuptools', 'python-pip-whl', 'python3-pip', 'python2']
+
+
+
+
+
+

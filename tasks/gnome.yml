@@ -1,0 +1,165 @@
+---
+- name: Change to local user
+  set_fact:
+    remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+
+- name: Instalar dependencias para configurar Gnome
+  become: true
+  apt:
+    pkg: ['python3-psutil']
+
+- name: GNOME Preferences - Shell - Attach Modal Dialogues
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/shell/overrides/attach-modal-dialogs"
+    value: "false"
+    state: present
+
+- name: GNOME Preferences - Nautilus - Clock Format
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/clock-format"
+    value: "'24h'"
+    state: present
+
+- name: Agregar repositorio para indicator-keylock
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:tsbarnes/indicator-keylock
+
+- name: Instalar indicator-keylock
+  become: true
+  apt:
+    name: indicator-keylock
+  tags:
+    - indicator-keylock
+
+- name: Agregar repositorio para indicator-sound-switcher
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:yktooo/ppa
+
+- name: Instalar indicator-sound-switcher
+  become: true
+  apt:
+    name: indicator-sound-switcher
+
+- name: Copy wallpaper file
+  copy: src=files/isotipo_adhoc.png dest=/home/{{ remote_regular_user }}/.wallpaper.jpg owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=600
+
+- name: Set GNOME wallpaper
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/background/picture-uri"
+    value: "'file:///home/{{ remote_regular_user }}/.wallpaper.jpg'"
+
+- name: Copy lockscreenfile
+  copy: src=files/logotipo_adhoc.png dest=/home/{{ remote_regular_user }}/.logotipo_adhoc.png owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=600
+
+- name: Set lock screen background
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/screensaver/picture-uri"
+    value: "'file:///home/{{ remote_regular_user }}/.logotipo_adhoc.png'"
+
+- name: Set lock screen background
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/background/picture-options"
+    value: "'centered'"
+
+- name: Set background colour
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/background/primary-color"
+    value: "'#d6d6d4'"
+
+- name: Improve performance of UI - Show seconds
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/clock-show-seconds"
+    value: "'false'"
+
+- name: Improve performance of UI - Disable animations
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/enable-animations"
+    value: "'false'"
+
+- name: Improve performance of UI - Set GTK theme
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    value: "'Adwaita-dark'"
+    state: present
+
+- name: Improve performance of UI - Set cursor theme
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/cursor-theme"
+    value: "'DMZ-Black'"
+    state: present
+
+- name: Improve performance of UI - Set icon theme
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/icon-theme"
+    value: "'ubuntu-mono-dark'"
+    state: present
+
+# Determina si el cambio entre áreas de trabajo debería suceder para las ventanas en todos los monitores o sólo para ventanas en el monitor primario.
+- name: Improve performance of UI - Workspaces on primary screen
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/mutter/workspaces-only-on-primary"
+    value: "'true'"
+    state: present
+
+# Shortcuts
+- name: Shortcuts Move 01
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-1"
+    value: "['<Shift><Super>F1']"
+
+- name: Shortcuts Move 02
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-2"
+    value: "['<Shift><Super>F2']"
+
+- name: Shortcuts Move 03
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-3"
+    value: "['<Shift><Super>F3']"
+
+- name: Shortcuts Move 04
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-4"
+    value: "['<Shift><Super>F4']"
+
+- name: Shortcuts Switch 01
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-1"
+    value: "['<Super>F1']"
+
+- name: Shortcuts Switch 02
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-2"
+    value: "['<Super>F2']"
+
+- name: Shortcuts Switch 03
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-3"
+    value: "['<Super>F3']"
+
+- name: Shortcuts Switch 04
+  become: false
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-4"
+    value: "['<Super>F4']"

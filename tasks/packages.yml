@@ -1,0 +1,29 @@
+---
+- name: Instalar paquetes de sistema, drivers
+  apt:
+    pkg: ['htop', 'mc', 'tmux', 'ubuntu-restricted-extras', 'apt-transport-https', 'curl', 'wget', 'openssh-client', 'openssh-server', 'jq', 'tldr', 'ppa-purge', 'locate']
+
+
+- name: Compression utils
+  apt:
+    pkg: ['zip', 'gzip', 'tar', 'unrar', 'unzip', 'p7zip-full', 'p7zip-rar']
+
+
+- name: Instalar otras aplicaciones
+  apt:
+    pkg: ['poedit', 'fail2ban', 'ufw', 'vlc', 'ffmpeg']
+
+
+- name: Análisis de Hardware, información del sistema
+  apt:
+    pkg: ['htop', 'inxi', 'hwinfo', 'glances', 'mtr', 'hardinfo']
+
+
+- name: Improve battery performance
+  apt:
+    pkg: ['tlp', 'tlp-rdw', 'acpi-call-dkms', 'powertop']
+
+
+- name: Paquetes varios de entorno gráfico
+  apt:
+    pkg: ['indicator-multiload', 'alacarte', 'fonts-firacode', 'gnome-tweak-tool']

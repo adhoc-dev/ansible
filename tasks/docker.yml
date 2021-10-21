@@ -1,0 +1,36 @@
+---
+- name: Add Docker GPG apt Key
+  become: true
+  apt_key:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    state: present
+
+- name: Add Docker Repository
+  become: true
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    state: present
+
+- name: Install docker
+  become: true
+  apt:
+    update_cache: true
+    name: "docker-ce"
+    state: present
+
+- name: Enable and start docker service
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+
+- name: Create docker group
+  group:
+    name: "docker"
+    state: present
+
+- name: Add user to group
+  user:
+    name: "{{ username.stdout }}"
+    groups: docker
+    append: yes
