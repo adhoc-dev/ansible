@@ -27,8 +27,9 @@ $ ansible-galaxy install -r requirements.yml
 # ansible-playbook --> --syntax-check, --check, --list-tasks, --start NAME, --tags ["tag, tag"]
 $ ansible-playbook playbook.yml -K
 $ ansible -m setup {playbook}
+$ ansible-pull -U {repositorio.git} {playbook.yml} -K
 
-# Para obtenter información sobre el host
+# Para obtener información sobre el host
 $ ansible all -m gather_facts
 $ ansible-doc --list
 # Install a package via the apt module, and also make sure it's the latest version available
@@ -36,8 +37,6 @@ $ ansible all -m apt -a "name=snapd state=latest" --become --ask-become-pass
 # Upgrade all the package updates that are available
 $ ansible all -m apt -a upgrade=dist --become --ask-become-pass
 ```
-
-- handlers, additional tasks to trigger if a task caused a change (services should usually be restarted if their config file has been updated)
 
 ### Roles
 
@@ -67,7 +66,26 @@ ansible 2.9.6
 $ ansible-galaxy collection install community.general
 ```
 
-## To-do: incluir dotfiles, bash y otros archivos de configuración
+## To-do
+
+- [ ] Entorno para devs
+  - [ ] Install Visual Studio Code extensions
+  - [ ] Install docker-compose
+  - [ ] Install rancher + token
+  - [ ] installing PIP (2 & 3)
+  - [ ] Install PyLint for Python 2 and Python 3
+  - [ ] Install flake8 and pep8 for Python 2 and Python 3
+  - [ ] Install Yakuake
+  - [ ] Install lint hook
+  - [ ] Enable history-search with arrows
+- [ ] Mejorar estructura proyecto
+- [ ] Actualización automática (ansible-pull + cron?)
+- [ ] Preparar nuevo ambiente de desarrollo
+  - [ ] Login, tokens Github, Rancher, DockerHub
+- [ ] Entorno para sysadmin
+- [ ] incluir dotfiles, keys, bash y otros archivos de configuración
+
+### Modelo dotfiles
 
 ```bash
 $ mkdir ~/repos
