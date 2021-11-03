@@ -1,10 +1,14 @@
 ---
 - hosts: localhost
+  vars_files:
+    - ./tasks/vars.yml
   become: true
   pre_tasks:
   - name: update repositories
-    apt: update_cache=yes
+    apt: update_cache=yes cache_valid_time=3600
     changed_when: False
+  - name: Upgrade all apt packages
+    apt: upgrade=dist
   tasks:
     - include: tasks/packages.yml
     - include: tasks/chrome.yml

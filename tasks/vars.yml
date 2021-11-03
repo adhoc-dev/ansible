@@ -1,9 +1,11 @@
 ---
 # Archivo de pruebas para definir variables
 
+docker_compose_version: "1.29.2"
+
 # Tipo de usuario:
-es_funcional: true
-es_tecnico: false
+user_role: funcional
+#user_role: dev
 
 # Servidores DNS:
 dns_servers:
@@ -15,6 +17,3 @@ locales_dependencies:
   - tzdata
   - locales
 locales_gen_file: "{{ '/var/lib/locales/supported.d/local' if ansible_distribution == 'Ubuntu' else '/etc/locale.gen' }}"
-
-
-docker_compose_version: "1.29.2"

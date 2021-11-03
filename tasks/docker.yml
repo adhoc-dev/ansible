@@ -51,7 +51,7 @@
 
 - name: Add user to group
   user:
-    name: "{{ username.stdout }}"
+    name: "{{ ansible_user_id }}"
     groups: docker
     append: yes
 
