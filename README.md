@@ -11,6 +11,7 @@ Laboratorio de pruebas de ansible, con la idea de automatizar la preparación de
 - [Repositorio](https://github.com/nihiliad/ansible-ubuntu-laptop)
 - [Sample Ansible setup](https://docs.ansible.com/ansible/latest/user_guide/sample_setup.html)
 - [5 everyday sysadmin tasks to automate with Ansible](https://opensource.com/article/21/3/ansible-sysadmin)
+- [Ansible for dummies](https://miquelmariano.github.io/2017/01/10/ansible-for-dummies/)
 
 ### Entorno
 
@@ -26,16 +27,29 @@ $ ansible-galaxy install -r requirements.yml
 # instalando los roles configurados
 # ansible-playbook --> --syntax-check, --check, --list-tasks, --start NAME, --tags ["tag, tag"]
 $ ansible-playbook playbook.yml -K
+# debugging playbook
+$ ansible-playbook {playbook} -v
 $ ansible -m setup {playbook}
+# ejecutar un deployment específico directamente llamando al repositorio
 $ ansible-pull -U {repositorio.git} {playbook.yml} -K
+```
 
-# Para obtener información sobre el host
-$ ansible all -m gather_facts
-$ ansible-doc --list
-# Install a package via the apt module, and also make sure it's the latest version available
-$ ansible all -m apt -a "name=snapd state=latest" --become --ask-become-pass
-# Upgrade all the package updates that are available
-$ ansible all -m apt -a upgrade=dist --become --ask-become-pass
+```yml
+# Puede utilizarse regex para parsear sólo el int del print de --version
+- set_fact:
+    docker_compose_current_version: "{{ docker_compose_vsn.stdout | regex_search('(\\d+(\\.\\d+)+)') }}"
+  when:
+    - docker_compose_vsn.stdout is defined
+```
+
+```yml
+# Para definir variables
+docker_compose_version: "1.29.2"
+# Asignar variables de entorno
+vars:
+  cloudflare_email:     "{{ lookup('env','CF_EMAIL') }}"
+  cloudflare_api_token: "{{ lookup('env','CF_API_TOKEN') }}"
+  cloudflare_zone:      "example.com"
 ```
 
 ### Roles
@@ -63,22 +77,23 @@ ansible 2.9.6
   ansible python module location = /usr/lib/python3/dist-packages/ansible
   executable location = /usr/bin/ansible
   python version = 3.8.10 (default, Jun  2 2021, 10:49:15) [GCC 9.4.0]
+# Para instalar plugins / colecciones de la comunidad
 $ ansible-galaxy collection install community.general
 ```
 
 ## To-do
 
 - [ ] Entorno para devs
-  - [ ] Install Visual Studio Code extensions
-  - [ ] Install docker-compose
-  - [ ] Install rancher + token
+  - [x] Install Visual Studio Code extensions
+  - [x] Install docker-compose
   - [ ] installing PIP (2 & 3)
   - [ ] Install PyLint for Python 2 and Python 3
   - [ ] Install flake8 and pep8 for Python 2 and Python 3
   - [ ] Install Yakuake
   - [ ] Install lint hook
   - [ ] Enable history-search with arrows
-- [ ] Mejorar estructura proyecto
+  - [ ] Install rancher
+- [ ] Mejorar estructura proyecto - [Guía](https://ansible.github.io/workshops/exercises/ansible_rhel/1.7-role/README.es.html)
 - [ ] Actualización automática (ansible-pull + cron?)
 - [ ] Preparar nuevo ambiente de desarrollo
   - [ ] Login, tokens Github, Rancher, DockerHub
@@ -114,5 +129,3 @@ $ ssh github
 $ cd ~/repos/ansible-laptop
 $ mkdir ~/bin
 ```
-
-
