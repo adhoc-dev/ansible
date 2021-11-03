@@ -1,11 +1,8 @@
 ---
-- name: install VSCode
-  vars:
-    vscode_extension_list:
-    ## Convert Tool
-     - ahebrank.yaml2json
-     - buianhthang.xml2json
-
+- name: download and install visual studio code
+  apt:
+    deb: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+  when: ansible_userspace_architecture == 'x86_64'
 
 - name: install a list of extension
   shell: code --install-extension {{ item }}
