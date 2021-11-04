@@ -48,7 +48,6 @@
       - vlc
       - ffmpeg
 
-
 - name: Análisis de Hardware, información del sistema
   apt:
     name: "{{ packages }}"
@@ -62,7 +61,7 @@
       - glances
       - mtr
       - hardinfo
-
+      - stacer
 
 - name: Improve battery performance
   apt:
