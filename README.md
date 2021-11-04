@@ -84,12 +84,13 @@ $ ansible-galaxy collection install community.general
 ## To-do
 
 - [ ] Entorno para devs
+  - [ ] Importar entorno funcionales
   - [x] Install Visual Studio Code extensions
   - [x] Install docker-compose
   - [ ] installing PIP (2 & 3)
   - [ ] Install PyLint for Python 2 and Python 3
   - [ ] Install flake8 and pep8 for Python 2 and Python 3
-  - [ ] Install Yakuake
+  - [x] Install Yakuake
   - [ ] Install lint hook
   - [ ] Enable history-search with arrows
   - [ ] Install rancher
@@ -98,6 +99,8 @@ $ ansible-galaxy collection install community.general
 - [ ] Preparar nuevo ambiente de desarrollo
   - [ ] Login, tokens Github, Rancher, DockerHub
 - [ ] Entorno para sysadmin
+  - [ ] Instalar terraform
+  - [ ] Instalar gcloud
 - [ ] incluir dotfiles, keys, bash y otros archivos de configuración
 
 ### Modelo dotfiles

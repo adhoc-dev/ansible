@@ -4,13 +4,19 @@
     - ./tasks/vars.yml
   become: true
   pre_tasks:
-  - name: update repositories
-    apt: update_cache=yes cache_valid_time=3600
-    changed_when: False
-  - name: Upgrade all apt packages
-    become: true
-    apt: upgrade=yes
+  - name: Actualizar (Update and upgrade apt packages)
+    apt:
+      upgrade: yes
+      update_cache: yes
+      cache_valid_time: 86400
+  - include: tasks/packages.yml
+  - include: tasks/chrome.yml
+  - include: tasks/ext.yml
+  - include: tasks/gnome.yml
+  - include: tasks/language.yml
+  - include: tasks/meld.yml
+
   tasks:
-    - include: tasks/packages.yml
-    - include: tasks/chrome.yml
-    - include: tasks/gnome.yml
+    - include: tasks/code.yml
+    - include: tasks/docker.yml
+    - include: tasks/packages_dev.yml
