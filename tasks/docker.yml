@@ -1,7 +1,7 @@
 ---
 # Fuente: https://graspingtech.com/install-docker-ansible/
 # Revisar docker-compose version in /tasks/vars.yml
-- name: Install docker dependencies
+- name: Instalar dependencias de docker
   apt:
     name: "{{ packages }}"
     state: present
@@ -14,19 +14,19 @@
     - software-properties-common
     - gnupg-agent
 
-- name: Add Docker GPG apt Key
+- name: Agregar docker GPG apt Key
   become: true
   apt_key:
     url: "https://download.docker.com/linux/ubuntu/gpg"
     state: present
 
-- name: Add Docker Repository
+- name: Agregar repositorio de docker
   become: true
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
     state: present
 
-- name: Install Docker
+- name: Instalar docker
   become: true
   apt:
     name: "{{ packages }}"
@@ -38,33 +38,33 @@
     - docker-ce-cli
     - containerd.io
 
-- name: Enable and start docker service
+- name: Habilitar e iniciar docker service
   systemd:
     name: docker
     enabled: yes
     state: started
 
-- name: Create docker group
+- name: Crear grupo docker
   group:
     name: "docker"
     state: present
 
-- name: Add user to group
+- name: Agregar usuario al grupo docker
   user:
     name: "{{ ansible_user_id }}"
     groups: docker
     append: yes
 
-- name: Download docker-compose {{ docker_compose_version }}
+- name: Descargar docker-compose {{ docker_compose_version }}
   get_url:
     url : https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
     dest: ~/docker-compose
     mode: '+x'
 
-- name: Check docker-compose exists
+- name: Validar si docker-compose ya está instalado
   stat: path=~/docker-compose
   register: docker_compose
 
-- name: Move docker-compose to /usr/local/bin/docker-compose
+- name: Mover docker-compose a /usr/local/bin/docker-compose
   command: mv ~/docker-compose /usr/local/bin/docker-compose
   when: docker_compose.stat.exists

@@ -1,10 +1,10 @@
 ---
-- name: download and install visual studio code
+- name: Descargar e instalar Visual Studio Code
   apt:
     deb: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
   when: ansible_userspace_architecture == 'x86_64'
 
-- name: install a list of extension
+- name: Instalar muchas extensiones predefinidas
   become: false
   become_user: "{{ ansible_user_id }}"
   shell: code --install-extension {{ item }}
