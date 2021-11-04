@@ -1,14 +1,41 @@
 ---
 - name: Editor de texto, colorizer, terminal
   apt:
-    pkg: ['vim', 'vim-gtk3', 'ccze', 'tmux', 'tmuxp', 'xclip', 'bash-completion']
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - vim
+      - vim-gtk3
+      - ccze
+      - tmux
+      - tmuxp
+      - xclip
+      - bash-completion
+      - yakuake
+
+- name: Configuraciones yakuake
+  copy: src=/files/yakuakerc dest=~/.config/ owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=600
+
+- name: Directorio para configuración yakuake
+  file:
+    path: ~/.local/share/konsole
+    state: directory
+
+- name: Copiar archivo configuración yakuake
+  copy: src=files/Profile_1.profile dest=~/.local/share/konsole owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=600
 
 - name: Instalar dependencias y paquetes para Python
   apt:
-    pkg: ['ipython3', 'python3-setuptools', 'python-setuptools', 'python-pip-whl', 'python3-pip', 'python2']
-
-
-
-
-
-
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - ipython3
+      - python3-setuptools
+      - python-setuptools
+      - python-pip-whl
+      - python3-pip
+      - python2
