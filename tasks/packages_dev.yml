@@ -38,4 +38,4 @@
       - python-setuptools
       - python-pip-whl
       - python3-pip
-      - python2
+      - python3
