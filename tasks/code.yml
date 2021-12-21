@@ -8,14 +8,16 @@
   become: false
   become_user: "{{ ansible_user_id }}"
   shell: code --install-extension {{ item }}
-  with_items: "{{vscode_extension_list}}"
+  with_items: "{{ vscode_extension_list }}"
 
-
-# TO-DO
-
-# Make Visual Studio Code default plain-text editor.
-# xdg-mime default code.desktop text/plain
-
-# Configure Visual Studio Code.
-# yes | cp -rf ./static/vscode/{settings.json,keybindings.json} ~/.config/Code/User/
-# yes | cp -rf ./static/text/{pycodestyle,flake8} ~/.config/
+- name: Definir visual studio code como editor de texto predeterminado
+  command: "xdg-mime default code.desktop {{ text_types }}"
+  when: false
+  with_items: "{{ text_types }}"
+  vars:
+    text_types:
+      - text
+      - text/plain
+      - text/markdown
+      - application/x-yaml
+      - text/x-python

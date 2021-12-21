@@ -3,7 +3,7 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: yes
+    update_cache: true
   vars:
     packages:
       - htop
@@ -24,7 +24,7 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: yes
+    update_cache: true
   vars:
     packages:
       - zip
@@ -39,7 +39,7 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: yes
+    update_cache: true
   vars:
     packages:
       - poedit
@@ -52,7 +52,7 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: yes
+    update_cache: true
   vars:
     packages:
       - htop
@@ -67,10 +67,9 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: yes
+    update_cache: true
   vars:
     packages:
-    pkg:
       - tlp
       - tlp-rdw
       - acpi-call-dkms
@@ -80,7 +79,7 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: yes
+    update_cache: true
   vars:
     packages:
       - indicator-multiload

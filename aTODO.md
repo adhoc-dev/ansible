@@ -1,45 +1,5 @@
-# To-do, objetivo, script para migrar a ansible
-
-- [] logs
-- [] mensajes de cada acción
-- [] ejecutar según tipos de usuario (funcional / técnico)
-
-
-    # Change hostname
-    echo "${USER}-nb" | sudo tee /etc/hostname >/dev/null
-    sed '/-nb/d' /etc/hosts | sudo tee /etc/hosts >/dev/null
-    echo "127.0.0.1       ${USER}-nb" | sudo tee -a /etc/hosts >/dev/null
-    echo "${USER}-nb" | sudo xargs hostname
-
 # Basic installation.
 
-        # Finish installing en language.
-        PrintMsg "Completely installing EN language..."
-        AptInstall language-pack-en language-pack-gnome-en language-pack-en-base language-pack-gnome-en-base
-        AptInstall `check-language-support -l en`
-
-        # Install es language.
-        PrintMsg "Installing ES language..."
-        AptInstall language-pack-es language-pack-gnome-es language-pack-es-base language-pack-gnome-es-base
-        AptInstall `check-language-support -l es`
-
-        # Uncomment en_US.UTF-8 UTF-8 and es_AR.UTF-8 UTF-8 from locales list.
-        PrintMsg "Uncommenting en_US.UTF-8 UTF-8 and es_AR.UTF-8 UTF-8 from locales list..."
-        sudo sed -i 's|#en_US.UTF-8 UTF-8|en_US.UTF-8 UTF-8|g' /etc/locale.gen
-        sudo sed -i 's|#es_AR.UTF-8 UTF-8|es_AR.UTF-8 UTF-8|g' /etc/locale.gen
-
-        # Generate locales.
-        PrintMsg "Generating locales..."
-        sudo locale-gen
-
-        # Switch language to es.
-        PrintMsg "Switching language to es and locales to es_AR..."
-        yes | sudo cp -rf ./static/text/locale /etc/default/
-        yes | cp -rf ./static/text/.pam_environment ~/
-
-        # Install miscellaneous packages.
-        PrintMsg "Installing miscellaneous packages..."
-        cat static/packages/miscellaneouspkg.sh |grep -v -e '^#' | xargs $INSTALL
 
         PrintMsg "installing PIP (2 & 3)"
         # pip2
@@ -50,53 +10,6 @@
         curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
         sudo python3 get-pip.py
         rm get-pip.py
-
-        # Install Visual Studio Code.
-        PrintMsg "Installing Visual Studio Code..."
-        wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-        sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-        sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-        $UPDATE
-        AptInstall code xsel
-        # clean
-        rm packages.microsoft.gpg
-
-        # Install Visual Studio Code extensions.
-        PrintMsg "Installing Visual Studio Code extensions..."
-        code --install-extension ms-python.python
-        # Markdown linting and style checking for Visual Studio Code
-        code --install-extension DavidAnson.vscode-markdownlint
-        # Makes it easy to create, manage, and debug containerized applications.
-        code --install-extension ms-azuretools.vscode-docker
-        # Beautify code in place for VS Code
-        code --install-extension HookyQR.beautify
-        # Automatically add HTML/XML close tag, same as Visual Studio IDE or Sublime Text
-        code --install-extension formulahendry.auto-close-tag
-        ## Muestra en rojo los espacios inutilziados
-        code --install-extension shardulm94.trailing-spaces
-        # Highlight CSV and TSV files, Run SQL-like queries
-        code --install-extension mechatroner.rainbow-csv
-        # This extension duplicates text based on the context. If text is selected, only the selected text will be duplicated. Otherwise, the complete line will be duplicated. (deprecapited)
-        # code --install-extension lafe.contextualduplicate
-        # Provides path completion
-        code --install-extension ionutvmi.path-autocomplete
-        # XML Tools for Visual Studio Code
-        code --install-extension dotjoshjohnson.xml
-        # Supercharge the Git capabilities built into Visual Studio Code
-        code --install-extension eamodio.gitlens
-        # Odoo snippets
-        code --install-extension mstuttgart.odoo-snippets
-        # Icons
-        code --install-extension pkief.material-icon-theme
-        # Share vs (remote)
-        code --install-extension ms-vsliveshare.vsliveshare
-        # Check spell (En & Es)
-        code --install-extension streetsidesoftware.code-spell-checker
-        code --install-extension streetsidesoftware.code-spell-checker-spanish
-        # Reload plugin
-        code --install-extension natqe.reload
-        # Git Visualizer
-        code --install-extension mhutchie.git-graph
 
 
         # Make Visual Studio Code default plain-text editor.
