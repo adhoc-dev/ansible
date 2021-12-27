@@ -81,6 +81,54 @@ ansible 2.9.6
 $ ansible-galaxy collection install community.general
 ```
 
+### Ambiente dev con vagrant
+
+- [Documentación](https://www.vagrantup.com/)
+- [Ansible Provisioner](https://www.vagrantup.com/docs/provisioning/ansible)
+
+
+```bash
+$ vagrant init # Lanzar proyecto base para editar
+$ vagrant up # Levantar VM ya preconfigurada
+
+# Para usar una VM como ambiente de test
+$ vagrant ssh-config # Para conocer los datos de la VM, key, etc.
+Host ubuntu-test
+  HostName 127.0.0.1
+  User vagrant
+  Port 2222
+  UserKnownHostsFile /dev/null
+  StrictHostKeyChecking no
+  PasswordAuthentication no
+  IdentityFile /home/bolli/proyectos/ansible/.vagrant/machines/ubuntu-test/virtualbox/private_key
+  IdentitiesOnly yes
+  LogLevel FATAL
+# Agregar host en archivo / inventario
+[vagrant]
+ubuntu-test ansible_host=127.0.0.1 ansible_port=2222 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/bolli/proyectos/ansible/.vagrant/machines/ubuntu-test/virtualbox/private_key
+# Test conexión
+$ ansible ubuntu-test -m ping    
+ubuntu-test | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+
+# Vagrant’s Ansible provisioning feature (ver bloque en Vagrantifle)
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
+
 ## To-do
 
 - [ ] Entorno para devs

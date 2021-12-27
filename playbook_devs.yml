@@ -1,0 +1,12 @@
+---
+- hosts: all
+  vars_files:
+    - ./tasks/vars.yml
+  become: true
+
+# Tareas para devs
+  tasks:
+    - include: tasks/packages_dev.yml
+    - include: tasks/code.yml
+    - include: tasks/docker.yml
+    - include: tasks/python.yml

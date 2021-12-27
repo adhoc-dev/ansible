@@ -1,5 +1,16 @@
 # Basic installation.
 
+~/.ssh
+~/.bashrc
+~/.bash_aliases
+~/.gitconfig
+~/.pgadmin3
+~/.pgpass
+~/odoo
+~/Escritorio
+/opt
+
+
 
         PrintMsg "installing PIP (2 & 3)"
         # pip2
@@ -12,15 +23,6 @@
         rm get-pip.py
 
 
-        # Make Visual Studio Code default plain-text editor.
-        PrintMsg "Making Visual Studio Code default plain-text editor..."
-        xdg-mime default code.desktop text/plain
-
-        # Configure Visual Studio Code.
-        PrintMsg "Configuring Visual Studio Code..."
-        yes | cp -rf ./static/vscode/{settings.json,keybindings.json} ~/.config/Code/User/
-        #yes | cp -rf ./static/vscode/settings.json ~/.config/Code/User/
-        yes | cp -rf ./static/text/{pycodestyle,flake8} ~/.config/
 
         # Increase fs.inotify.max_user_watches value.
         PrintMsg "Increase fs.inotify.max_user_watches value..."
@@ -31,55 +33,11 @@
         sudo pip2 install pylint && sudo pip2 install --upgrade git+https://github.com/oca/pylint-odoo.git
         sudo pip3 install --upgrade git+https://github.com/oca/pylint-odoo.git
 
-        # Install flake8 and pep8 for Python 2 and Python 3.
-        PrintMsg "Installing Flake8 and Pep8 for Python 2 and Python 3"
-        sudo pip2 install -U flake8 --user
-        sudo pip3 install -U flake8 --user
-        sudo pip2 install -U pep8 --user
-        sudo pip3 install -U pep8 --user
-        # Pre-commit
-        #sudo pip2 install pre-commit
-        sudo pip3 install pre-commit
-
         PrintMsg "Set python defaults"
         # Hacemos el update alternatives para que python2 corra por defecto (mas alto es mayor)
         sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 2
         sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
-        # Install Yakuake.
-        PrintMsg "Installing Yakuake..."
-        AptInstall yakuake
-        yes | cp -rf ./static/text/yakuakerc ~/.config/
-        mkdir -p ~/.local/share/konsole
-        yes | cp -rf ./static/text/'Profile 1.profile' ~/.local/share/konsole/
-
-        # Branding.
-        PrintMsg "Branding..."
-        sudo cp ./static/images/{logotipo_adhoc.png,isotipo_adhoc.png} /usr/share/backgrounds/
-        sudo chmod 666 /usr/share/backgrounds/{isotipo_adhoc.png,logotipo_adhoc.png}
-        dconf write /org/gnome/desktop/background/picture-options "'centered'"
-        dconf write /org/gnome/desktop/background/picture-uri "'file:///usr/share/backgrounds/isotipo_adhoc.png'"
-        dconf write /org/gnome/desktop/background/primary-color "'#EEEEEC'"
-        dconf write /org/gnome/desktop/screensaver/picture-options "'centered'"
-        dconf write /org/gnome/desktop/screensaver/picture-uri "'file:///usr/share/backgrounds/logotipo_adhoc.png'"
-        dconf write /org/gnome/desktop/screensaver/primary-color "'#EEEEEC'"
-        # Improve performance of UI
-        gsettings set org.gnome.desktop.interface clock-show-seconds false
-        gsettings set org.gnome.desktop.interface enable-animations false
-        gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
-        gsettings set org.gnome.desktop.interface cursor-theme 'DMZ-Black'
-        gsettings set org.gnome.desktop.interface icon-theme 'ubuntu-mono-dark'
-        # Determina si el cambio entre áreas de trabajo debería suceder para las ventanas en todos los monitores o sólo para ventanas en el monitor primario.
-        gsettings set org.gnome.mutter workspaces-only-on-primary true
-        # Shortcuts
-        gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-1 "['<Shift><Super>F1']"
-        gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-2 "['<Shift><Super>F2']"
-        gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-3 "['<Shift><Super>F3']"
-        gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-4 "['<Shift><Super>F4']"
-        gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>F1']"
-        gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>F2']"
-        gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>F3']"
-        gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>F4']"
 
         # Configure UI and improve UX.
 
@@ -91,36 +49,6 @@
         yes | ./install-gnome-extensions.sh --enable --overwrite --file ./static/text/gnome-ext.txt
         rm -f ./install-gnome-extensions.sh
 
-        # Configuring Ext
-        dconf write /org/gnome/shell/extensions/wsmatrix/num-columns 2
-        dconf write /org/gnome/shell/extensions/wsmatrix/num-rows 2
-        dconf write /org/gnome/shell/extensions/wsmatrix/show-overview-grid true
-        dconf write /org/gnome/shell/extensions/openweather/city "'-32.9575, -60.639444>Rosario, Santa Fe>-1'"
-        dconf write /org/gnome/shell/extensions/openweather/unit "'celsius'"
-        dconf write /org/gnome/shell/extensions/openweather/wind-speed-unit "'m/s'"
-        dconf write /org/gnome/shell/extensions/openweather/pressure-unit "'hPa'"
-        dconf write /org/gnome/shell/extensions/dash-to-dock/scroll-action "'cycle-windows'"
-        dconf write /org/gnome/shell/extensions/dash-to-dock/isolate-workspaces true
-        dconf write /org/gnome/shell/extensions/dash-to-dock/multi-monitor true
-        dconf write /org/gnome/shell/window-switcher/current-workspace-only true
-        dconf write /org/gnome/shell/app-switcher/current-workspace-only true
-        dconf write /org/gnome/desktop/interface/clock-show-date true
-        dconf write /org/gnome/desktop/interface/show-battery-percentage true
-        dconf write /org/gnome/mutter/dynamic-workspaces false
-        dconf write /org/gnome/desktop/wm/preferences/num-workspaces 4
-
-
-        # Install keylock indicator.
-        PrintMsg "Installing keylock indicator..."
-        $ADDAPTREPOSITORY ppa:tsbarnes/indicator-keylock
-        $UPDATE
-        AptInstall indicator-keylock
-
-        # Install Indicator Sound Switcher
-        PrintMsg "Installing indicator-sound-switcher..."
-        $ADDAPTREPOSITORY ppa:yktooo/ppa
-        $UPDATE
-        AptInstall indicator-sound-switcher
 
         # Make keylock indicator and Yakuake start automatically
         PrintMsg "set autostart apps..."
@@ -147,14 +75,6 @@
         nautilus -q |true
 
 
-        # Enable battery saver app
-        PrintMsg "Enable Bat. Savers"
-        sudo tlp start
-
-        # Install Slack
-        PrintMsg "Installing Slack snap package"
-        sudo snap install slack --classic
-
 
         # Enable history-search with arrows
         PrintMsg "Set other user configs"
@@ -164,18 +84,6 @@
         echo 'export HISTFILESIZE=1000000000' >> ~/.bashrc
         echo 'export HISTIGNORE="ls:ll:cd:pwd:bg:fg:history"' >> ~/.bashrc
         echo 'shopt -s histappend' >> ~/.bashrc
-
-        PrintMsg "Global DNS Config"
-        # More info https://andrea.corbellini.name/2020/04/28/ubuntu-global-dns/
-        yes | sudo cp -rf ./static/dns/resolved.conf /etc/systemd/resolved.conf
-        sudo systemctl restart systemd-resolved.service
-        yes | sudo cp -rf ./static/dns/dns.conf /etc/NetworkManager/conf.d/dns.conf
-        sudo systemctl reload NetworkManager.service
-        # Add Default DNSs
-        # https://vdemir.github.io/app/2018/06/16/Dnsmasq.html
-        # Default DNS
-        # yes | sudo cp -rf ./static/text/resolv-dnsmasq.conf /etc/resolvconf/resolv.conf.d/base
-        # sudo resolvconf -u
 
         # Enable to configure and config wifi without sudo
         sudo touch /etc/sudoers.d/network_interface

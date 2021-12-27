@@ -19,6 +19,7 @@
       - tldr
       - ppa-purge
       - locate
+      - libxshmfence1
 
 - name: Utilidades de compresión
   apt:
