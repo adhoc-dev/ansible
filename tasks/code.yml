@@ -21,3 +21,16 @@
       - text/markdown
       - application/x-yaml
       - text/x-python
+
+- name: Configuraciones y personalizaciones de visual studio code
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ remote_regular_user }}"
+    group: "{{ remote_regular_user }}"
+    mode: 600
+  with_items:
+    - { src: files/settings.json, dest: ~/.config/Code/User/ }
+    - { src: files/keybindings.json, dest: ~/.config/Code/User/ }
+    - { src: files/pycodestyle, dest: ~/.config/ }
+    - { src: files/flake8, dest: ~/.config/ }
