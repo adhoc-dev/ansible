@@ -1,8 +1,4 @@
 ---
-- name: Cambiar a usuario (parche)
-  set_fact:
-    remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
-
 - name: Instalar dependencias para configurar Gnome
   become: true
   apt:
@@ -62,7 +58,7 @@
     key: "/org/gnome/desktop/screensaver/picture-uri"
     value: "'file:///home/{{ remote_regular_user }}/.logotipo_adhoc.png'"
 
-- name: Setear lock screen background
+- name: Centrar lock screen background
   become: false
   community.general.dconf:
     key: "/org/gnome/desktop/background/picture-options"
@@ -163,3 +159,14 @@
   community.general.dconf:
     key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-4"
     value: "['<Super>F4']"
+
+# Install the Extensions using https://github.com/cyfrost/install-gnome-extensions/
+- name: Descargar script para instalar gnome extensions
+  get_url:
+    url: https://raw.githubusercontent.com/cyfrost/install-gnome-extensions/master/install-gnome-extensions.sh
+    dest: /tmp/install-gnome-extensions.sh
+    mode: '+x'
+
+- name: Instalar gnome extensions
+  ansible.builtin.script:
+    cmd: /tmp/install-gnome-extensions.sh --enable --overwrite --file ./files/gnome_extension_list.txt
