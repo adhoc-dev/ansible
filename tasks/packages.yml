@@ -76,7 +76,7 @@
       - acpi-call-dkms
       - powertop
 
-- name: Paquetes varios de entorno gráfico
+- name: Paquetes varios de entorno gráfico, captura de pantalla, etc.
   apt:
     name: "{{ packages }}"
     state: present
@@ -87,3 +87,4 @@
       - alacarte
       - fonts-firacode
       - gnome-tweak-tool
+      - flameshot
