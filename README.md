@@ -23,47 +23,43 @@ Laboratorio de pruebas de ansible, con el objetivo de automatizar la preparació
 - [ ] Entorno para devs
   - [x] Install Visual Studio Code extensions
   - [x] Install docker-compose
-  - [ ] installing PIP (2 & 3)
-  - [ ] Install PyLint for Python 2 and Python 3
-  - [ ] Install flake8 and pep8 for Python 2 and Python 3
+  - [x] installing PIP (2 & 3)
+  - [x] Install PyLint for Python 2 and Python 3
+  - [x] Install flake8 and pep8 for Python 2 and Python 3
   - [x] Install Yakuake
   - [ ] Install lint hook
   - [ ] Enable history-search with arrows
   - [ ] Install rancher1 + rancher2
-- [ ] Mejorar estructura proyecto - [Guía](https://ansible.github.io/workshops/exercises/ansible_rhel/1.7-role/README.es.html)
 - [ ] Actualización automática (ansible-pull + cron?)
 - [ ] Preparar nuevo ambiente de desarrollo
   - [ ] Login, tokens Github, Rancher, DockerHub
 - [ ] Entorno para sysadmin
-  - [ ] Instalar terraform
-  - [ ] Instalar gcloud
+  - [x] Instalar terraform
+  - [x] Instalar gcloud
   - [ ] Ver más tareas en (script)[https://github.com/adhoc-dev/it-nb/blob/main/scripts/sysadmin.sh]
 - [ ] incluir dotfiles, keys, bash y otros archivos de configuración (~/.ssh, ~/.bashrc, ~/.bash_aliases, ~/.gitconfig, ~/.pgadmin3, ~/.pgpass, ~/odoo, /opt)
 
 ## Preparación equipo
 
+Esto fue cambiando muchas veces, desde algo más artesanal instalando con comandos, hasta esta versión más automágica:
+
 ```bash
-# Instalar requerimientos
-$ sudo apt install git ansible stow
+# Probando deploy con script
+$ curl https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh | sudo bash
+# El script actualiza paquetes, instala algunas dependencias, clona el proyecto y ejecuta el playbook que corresponda según el rol (aun en experimentación)
 $ ansible --version
 ansible 2.9.6
-  config file = /etc/ansible/ansible.cfg
-  configured module search path = ['/home/diego/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/lib/python3/dist-packages/ansible
-  executable location = /usr/bin/ansible
-  python version = 3.8.10 (default, Jun  2 2021, 10:49:15) [GCC 9.4.0]
-# Para instalar plugins / colecciones de la comunidad
-$ ansible-galaxy collection install community.general
 ```
 
-## Deploy ambientes de trabajo (Funcional / Devs / SRE)
+### Deploy artesanal ambientes de trabajo (Funcional / Devs / SRE)
 
 ```bash
 # Clonar repositorio con playbooks, tasks, etc.
 $ git clone https:https://github.com/adhoc-dev/ansible && cd ansible
-# Instalar ambientes
-$ ansible-playbook playbook_funcionales.yml -K
-$ ansible-playbook playbook_devs.yml -K
+# Instalar roles
+$ ansible-playbook local.yml -K --tags "funcional"
+$ ansible-playbook local.yml -K --tags "devs"
+$ ansible-playbook local.yml -K --tags "sysadmin"
 ```
 
 ## Post instalación
