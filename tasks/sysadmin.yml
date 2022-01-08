@@ -1,0 +1,90 @@
+---
+# Varios para sysadmin, sre, devops (si se vuelve inmanejable, separamos en distintas tareas)
+# To-do: https://github.com/adhoc-dev/it-nb/blob/main/scripts/sysadmin.sh
+
+# Instalar terraform on Linux
+# Fork of https://github.com/diodonfrost/ansible-role-terraform
+- name: Buscar versiones de Terraform
+  uri:
+    url: https://releases.hashicorp.com/terraform/index.json
+    return_content: yes
+  register: terraform_index
+  when: terraform_version == "latest"
+  check_mode: no
+
+- name: Buscar latest cuando la variable está definida
+  set_fact:
+    terraform_version_to_install: "{{ (terraform_index.content | from_json).versions | reject('search','-') | list | sort_versions | last }}"
+  when: terraform_version == 'latest'
+
+- name: Instalar una versiópn específica si no está definida latest
+  set_fact:
+    terraform_version_to_install: "{{ terraform_version }}"
+  when: terraform_version != 'latest'
+
+# This task avoids downloading Terraform every time
+- name: Verificar si ya está instalada la versión definida
+  command: "{{ terraform_path }}/terraform -version"
+  register: terraform_installed_version
+  ignore_errors: yes
+  changed_when: false
+  failed_when: false
+
+- name: Instalar Terraform
+  unarchive:
+    src: "{{ terraform_pkg_url }}"
+    dest: "{{ terraform_path }}"
+    remote_src: yes
+  when: terraform_version_to_install not in ( terraform_installed_version.stdout_lines | default(['empty'], true) | first )
+
+
+# Instalar gcloud cli
+---
+- name: Agregar key gcloud cli
+  become: true
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+- name: Agregar repositorio de gcloud cli
+  become: true
+  apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main
+    filename: google-cloud-sdk
+
+- name: Instalar gcloud cli
+  become: true
+  apt:
+    name: google-cloud-sdk
+
+# Instalar y configurar kubectl, alias, etc.
+- name: Instalar kubectl
+  become: true
+  apt:
+    name: kubectl
+    state: present
+    update_cache: true
+
+# Enable completion
+$ echo 'source <(kubectl completion bash)' >>~/.bashrc
+$ echo 'alias k=kubectl' >>~/.bashrc
+$ echo 'complete -F __start_kubectl k' >>~/.bashrc
+
+
+- name: Instalar Rancher2
+
+
+
+
+rancher2-cli + kubectl (opcionales)
+# Instalar Rancher Kubernetes Engine Manager RKE
+$ wget https://github.com/rancher/rke/releases/download/latest/rke_linux-amd64
+$ sudo mv rke_linux-amd64 /usr/local/bin/rke
+$ chmod +x /usr/local/bin/rke
+# Instalar Rancher 2
+# Verificar latest: https://github.com/rancher/cli/releases/tag/v2.4.13
+$ wget https://github.com/rancher/cli/releases/download/v2.4.13/rancher-linux-amd64-v2.4.13.tar.gz
+$ tar xf rancher-linux-amd64-v2.4.13.tar.gz
+$ rm rancher-linux-amd64-v2.4.13.tar.gz
+$ sudo mv rancher-v2.4.13/rancher /usr/bin/rancher2
+$ rm -d rancher-v2.4.13/
+
