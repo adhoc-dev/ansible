@@ -1,8 +1,8 @@
 # Laboratorio Ansible
 
-Laboratorio de pruebas de ansible, con la idea de automatizar la preparación de laptops / equipos de trabajo. Sobre todo un espacio experimental y de aprendizaje...
+Laboratorio de pruebas de ansible, con el objetivo de automatizar la preparación de laptops para puestos Funcionales, Desarrollo y SRE en Adhoc. Sobre todo un espacio experimental y de aprendizaje...
 
-## Recursos
+## Recursos / Inspiración
 
 - [Documentación oficial](https://docs.ansible.com/)
 - [Learn Linux TV - Getting started with Ansible](https://www.youtube.com/playlist?list=PLT98CRl2KxKEUHie1m24-wkyHpEsa4Y70)
@@ -15,61 +15,36 @@ Laboratorio de pruebas de ansible, con la idea de automatizar la preparación de
 
 ### Entorno
 
-- OS Name: Ubuntu 20.04.3 LTS
-- OS Type: 64bits
+- PRD: Ubuntu 20.04.3 LTS 64bits
+- LAB: Vagrant 2.2.19
 
-## Ansible: Teoría
+## To-do
 
-```bash
-# instalando usando roles de Galaxy
-# -s: use sudo, -K: prompt for sudo password, -a: arguments to module, --become: sudo is default
-$ ansible-galaxy install -r requirements.yml
-# instalando los roles configurados
-# ansible-playbook --> --syntax-check, --check, --list-tasks, --start NAME, --tags ["tag, tag"]
-$ ansible-playbook playbook.yml -K
-# debugging playbook
-$ ansible-playbook {playbook} -v
-$ ansible -m setup {playbook}
-# ejecutar un deployment específico directamente llamando al repositorio
-$ ansible-pull -U {repositorio.git} {playbook.yml} -K
-```
+- [ ] Entorno para devs
+  - [x] Install Visual Studio Code extensions
+  - [x] Install docker-compose
+  - [ ] installing PIP (2 & 3)
+  - [ ] Install PyLint for Python 2 and Python 3
+  - [ ] Install flake8 and pep8 for Python 2 and Python 3
+  - [x] Install Yakuake
+  - [ ] Install lint hook
+  - [ ] Enable history-search with arrows
+  - [ ] Install rancher1 + rancher2
+- [ ] Mejorar estructura proyecto - [Guía](https://ansible.github.io/workshops/exercises/ansible_rhel/1.7-role/README.es.html)
+- [ ] Actualización automática (ansible-pull + cron?)
+- [ ] Preparar nuevo ambiente de desarrollo
+  - [ ] Login, tokens Github, Rancher, DockerHub
+- [ ] Entorno para sysadmin
+  - [ ] Instalar terraform
+  - [ ] Instalar gcloud
+  - [ ] Ver más tareas en (script)[https://github.com/adhoc-dev/it-nb/blob/main/scripts/sysadmin.sh]
+- [ ] incluir dotfiles, keys, bash y otros archivos de configuración (~/.ssh, ~/.bashrc, ~/.bash_aliases, ~/.gitconfig, ~/.pgadmin3, ~/.pgpass, ~/odoo, /opt)
 
-```yml
-# Puede utilizarse regex para parsear sólo el int del print de --version
-- set_fact:
-    docker_compose_current_version: "{{ docker_compose_vsn.stdout | regex_search('(\\d+(\\.\\d+)+)') }}"
-  when:
-    - docker_compose_vsn.stdout is defined
-```
-
-```yml
-# Para definir variables
-docker_compose_version: "1.29.2"
-# Asignar variables de entorno
-vars:
-  cloudflare_email:     "{{ lookup('env','CF_EMAIL') }}"
-  cloudflare_api_token: "{{ lookup('env','CF_API_TOKEN') }}"
-  cloudflare_zone:      "example.com"
-```
-
-### Roles
-
-```yml
----
-- hosts: laptop
-  roles:
-    - common
-    - git_homedir
-    # roles can also be used conditionally
-    - { role: x11, when: ansible_distribution != "MacOSX" }
-    - { role: erlang, when: install_erlang is defined }
-```
-
-## Preparar ambiente
+## Preparación equipo
 
 ```bash
-# Instalar dependencias
-$ apt install git ansible stow
+# Instalar requerimientos
+$ sudo apt install git ansible stow
 $ ansible --version
 ansible 2.9.6
   config file = /etc/ansible/ansible.cfg
@@ -81,102 +56,83 @@ ansible 2.9.6
 $ ansible-galaxy collection install community.general
 ```
 
+## Deploy ambientes de trabajo (Funcional / Devs / SRE)
+
+```bash
+# Clonar repositorio con playbooks, tasks, etc.
+$ git clone https:https://github.com/adhoc-dev/ansible && cd ansible
+# Instalar ambientes
+$ ansible-playbook playbook_funcionales.yml -K
+$ ansible-playbook playbook_devs.yml -K
+```
+
+## Post instalación
+
+```bash
+# Setear password para conexión rápida de Anydesk
+$ echo <some_password> | sudo anydesk --set-password and anydesk --get-id
+# Login en gcloud (para sysadmin)
+$ gcloud auth login
+```
+
+## Ansible: Algunos apuntes
+
+```bash
+# instalando usando roles de Galaxy
+# -s: use sudo, -K: prompt for sudo password, -a: arguments to module, --become: sudo is default
+$ ansible-galaxy install -r requirements.yml
+# instalando los roles configurados
+# ansible-playbook --> --syntax-check, --check, --list-tasks, --start NAME, --tags ["tag, tag"]
+$ ansible-playbook playbook.yml -K
+# Para ejecutar un playbook en un host específico (y no todo el inventario)
+$ ansible-playbook playbook.yml --limit localhost
+# debugging playbook
+$ ansible-playbook {playbook} -v
+$ ansible -m setup {playbook}
+# ejecutar un deployment específico directamente llamando al repositorio
+$ ansible-pull -U {repositorio.git} {playbook.yml} -K
+```
+
 ### Ambiente dev con vagrant
 
 - [Documentación](https://www.vagrantup.com/)
 - [Ansible Provisioner](https://www.vagrantup.com/docs/provisioning/ansible)
 
-
 ```bash
-$ vagrant init # Lanzar proyecto base para editar
-$ vagrant up # Levantar VM ya preconfigurada
-
-# Para usar una VM como ambiente de test
-$ vagrant ssh-config # Para conocer los datos de la VM, key, etc.
-Host ubuntu-test
+# Lanzar proyecto ubuntu20.04 (crea archivo Vagrantfile)
+$ vagrant init ubuntu/focal64
+$ vagrant plugin install vagrant-vbguest # Dependencia
+# Levantar VM
+$ vagrant up
+# Actualizar la imagen de la VM
+$ vagrant box update
+# Para conocer los datos de la VM, key, etc.
+$ vagrant ssh-config
+Host default
   HostName 127.0.0.1
   User vagrant
   Port 2222
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
   PasswordAuthentication no
-  IdentityFile /home/bolli/proyectos/ansible/.vagrant/machines/ubuntu-test/virtualbox/private_key
+  IdentityFile /home/dib/Private/ansible/.vagrant/machines/default/virtualbox/private_key
   IdentitiesOnly yes
   LogLevel FATAL
-# Agregar host en archivo / inventario
+# Destruir VM
+$ vagrant destroy
+```
+
+```bash
+# Agregar VMs en hosts
 [vagrant]
-ubuntu-test ansible_host=127.0.0.1 ansible_port=2222 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/bolli/proyectos/ansible/.vagrant/machines/ubuntu-test/virtualbox/private_key
+default ansible_host=127.0.0.1 ansible_port=2222 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/dib/Private/ansible/.vagrant/machines/default/virtualbox/private_key
 # Test conexión
-$ ansible ubuntu-test -m ping    
+$ ansible ubuntu-test -m ping
 ubuntu-test | SUCCESS => {
     "changed": false,
     "ping": "pong"
 }
-
-# Vagrant’s Ansible provisioning feature (ver bloque en Vagrantifle)
-
-
-
-
-
-
-
-
-
-
-
-```
-
-
-
-## To-do
-
-- [ ] Entorno para devs
-  - [ ] Importar entorno funcionales
-  - [x] Install Visual Studio Code extensions
-  - [x] Install docker-compose
-  - [ ] installing PIP (2 & 3)
-  - [ ] Install PyLint for Python 2 and Python 3
-  - [ ] Install flake8 and pep8 for Python 2 and Python 3
-  - [x] Install Yakuake
-  - [ ] Install lint hook
-  - [ ] Enable history-search with arrows
-  - [ ] Install rancher
-- [ ] Mejorar estructura proyecto - [Guía](https://ansible.github.io/workshops/exercises/ansible_rhel/1.7-role/README.es.html)
-- [ ] Actualización automática (ansible-pull + cron?)
-- [ ] Preparar nuevo ambiente de desarrollo
-  - [ ] Login, tokens Github, Rancher, DockerHub
-- [ ] Entorno para sysadmin
-  - [ ] Instalar terraform
-  - [ ] Instalar gcloud
-- [ ] incluir dotfiles, keys, bash y otros archivos de configuración
-
-### Modelo dotfiles
-
-```bash
-$ mkdir ~/repos
-$ git clone https://.../dotfiles.git
-$ git clone https://.../ansible-laptop.git
-
-# setup bash
-$ rm ~/.bashrc
-$ rm ~/.bash_logout
-$ cd ~/repos/dotfiles/bash
-$ stow . --target ~
-
-# setup ssh
-$ cd ~/repos/dotfiles/ssh
-$ stow . —target ~
-# copiar keys
-$ cp -r /media/jack/PATH-TO-SSH-KEYS-ON-USB-STICK/ ~/.ssh
-# fix permisos
-$ chmod 400 ~/.ssh/keys/*
-$ chmod 400 ~/.ssh/conf.d/*
-$ chmod 400 ~/.ssh/config
-# add to ssh-agent
-$ source ~.bashrc
-$ ssh github
-
-$ cd ~/repos/ansible-laptop
-$ mkdir ~/bin
+# Para conectarse a la VM
+$ vagrant ssh
+Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-92-generic x86_64)
 ```
