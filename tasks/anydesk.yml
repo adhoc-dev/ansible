@@ -23,8 +23,10 @@
     name: anydesk
     state: present
   become: true
-  notify:
-    - Restart Anydesk service
+
+- name: Reiniciar servicio
+  become: true
+  shell: systemctl restart anydesk.service
 
 - name: Allow unattended access
   lineinfile:
