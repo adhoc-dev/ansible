@@ -1,0 +1,27 @@
+---
+
+# vars file for terraform in Linux system
+terraform_version: "latest"
+terraform_pkg_url: "https://releases.hashicorp.com/terraform/{{ terraform_version_to_install }}/terraform_{{ terraform_version_to_install }}_{{ os_type }}_{{ base_arch[ansible_architecture] | default('amd64') }}.zip"
+terraform_default_path: /usr/local/bin/
+os_type: linux
+
+
+
+vscode_extension_list_sysadmin:
+  # Ansible language support
+  - redhat.ansible
+  # Syntax highlighting and autocompletion for Terraform
+  - hashicorp.terraform
+  # Develop, deploy and debug Kubernetes applications
+  - ms-kubernetes-tools.vscode-kubernetes-tools
+  # Code snippets of kubernetes for Visual Studio Code.
+  - ipedrazas.kubernetes-snippets
+  # Provides path completion for visual studio code.
+  - ionutvmi.path-autocomplete
+  # Highlight CSV and TSV files, Run SQL-like queries
+  - mechatroner.rainbow-csv
+  # Open any folder or repository inside a Docker container and take advantage of Visual Studio Code's full feature set.
+  - ms-vscode-remote.remote-containers
+  # YAML Language Support by Red Hat, with built-in Kubernetes syntax support
+  - redhat.vscode-yaml

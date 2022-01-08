@@ -1,16 +1,6 @@
 ---
 
-
-# vars file for terraform in Linux system
-terraform_version: "latest"
-terraform_pkg_url: "https://releases.hashicorp.com/terraform/{{ terraform_version_to_install }}/terraform_{{ terraform_version_to_install }}_{{ os_type }}_{{ base_arch[ansible_architecture] | default('amd64') }}.zip"
-terraform_default_path: /usr/local/bin/
-os_type: linux
-
-docker_compose_version: "1.29.2"
-
-# Tipo de usuario:
-user_role: funcional
+# Usuario genérico para ejecutar algunas tareas
 remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
 
 # Servidores DNS:
@@ -24,57 +14,3 @@ locales_dependencies:
   - locales
 locales_gen_file: "{{ '/var/lib/locales/supported.d/local' if ansible_distribution == 'Ubuntu' else '/etc/locale.gen' }}"
 
-vscode_extension_list:
-  # Install Visual Studio Code extensions.
-  - ms-python.python
-  # Markdown linting and style checking for Visual Studio Code
-  - DavidAnson.vscode-markdownlint
-  # Makes it easy to create, manage, and debug containerized applications.
-  - ms-azuretools.vscode-docker
-  # Beautify code in place for VS Code
-  - HookyQR.beautify
-  # Automatically add HTML/XML close tag, same as Visual Studio IDE or Sublime Text
-  - formulahendry.auto-close-tag
-  ## Muestra en rojo los espacios inutilziados
-  - shardulm94.trailing-spaces
-  # Highlight CSV and TSV files, Run SQL-like queries
-  - mechatroner.rainbow-csv
-  # Provides path completion
-  - ionutvmi.path-autocomplete
-  # XML Tools for Visual Studio Code
-  - dotjoshjohnson.xml
-  # Supercharge the Git capabilities built into Visual Studio Code
-  - eamodio.gitlens
-  # Odoo snippets
-  - mstuttgart.odoo-snippets
-  # Icons
-  - pkief.material-icon-theme
-  # Share vs (remote)
-  - ms-vsliveshare.vsliveshare
-  # Check spell (En & Es)
-  - streetsidesoftware.code-spell-checker
-  - streetsidesoftware.code-spell-checker-spanish
-  # Reload plugin
-  - natqe.reload
-  # Git Visualizer
-  - mhutchie.git-graph
-  # GitHub Copilot
-  - github.copilot
-
-vscode_extension_list_sysadmin:
-  # Ansible language support
-  - redhat.ansible
-  # Syntax highlighting and autocompletion for Terraform
-  - hashicorp.terraform
-  # Develop, deploy and debug Kubernetes applications
-  - ms-kubernetes-tools.vscode-kubernetes-tools
-  # Code snippets of kubernetes for Visual Studio Code.
-  - ipedrazas.kubernetes-snippets
-  # Provides path completion for visual studio code.
-  - ionutvmi.path-autocomplete
-  # Highlight CSV and TSV files, Run SQL-like queries
-  - mechatroner.rainbow-csv
-  # Open any folder or repository inside a Docker container and take advantage of Visual Studio Code's full feature set.
-  - ms-vscode-remote.remote-containers
-  # YAML Language Support by Red Hat, with built-in Kubernetes syntax support
-  - redhat.vscode-yaml
