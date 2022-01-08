@@ -7,7 +7,6 @@ terraform_default_path: /usr/local/bin/
 os_type: linux
 
 
-
 vscode_extension_list_sysadmin:
   # Ansible language support
   - redhat.ansible

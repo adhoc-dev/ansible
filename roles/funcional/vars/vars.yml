@@ -1,0 +1,16 @@
+---
+
+# Usuario genérico para ejecutar algunas tareas
+remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+
+# Servidores DNS:
+dns_servers:
+  dns1: "8.8.8.8"
+  dns2: "8.8.4.4"
+
+# Idioma y región:
+locales_dependencies:
+  - tzdata
+  - locales
+locales_gen_file: "{{ '/var/lib/locales/supported.d/local' if ansible_distribution == 'Ubuntu' else '/etc/locale.gen' }}"
+

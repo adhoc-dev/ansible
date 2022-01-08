@@ -1,0 +1,60 @@
+---
+# tasks to complete before running roles
+- hosts: all
+  tags: always
+  become: true
+  pre_tasks:
+    - name: pre-run | update package cache (debian, etc)
+      tags: always
+      apt: update_cache=yes
+      changed_when: False
+
+# run roles
+- hosts: all
+  tags: funcional
+  become: true
+  roles:
+    - funcional
+
+- hosts: devs
+  tags: devs
+  become: true
+  roles:
+    - devs
+
+- hosts: sysadmin
+  tags: sysadmin
+  become: true
+  roles:
+    - sysadmin
+
+# end of run cleanup and reporting
+- hosts: all
+  become: true
+  tasks:
+  - name: cleanup package cache (debian and ubuntu)
+    tags: always
+    apt:
+      autoclean: yes
+    changed_when: false
+
+  - name: autoremove orphan packages (debian and ubuntu)
+    tags: always
+    apt:
+      autoremove: yes
+      purge: yes
+
+# TO-DO
+#  - name: send completion alert
+#    include_tasks: playbooks/send_completion_alert.yml
+#    tags: always
+#    when:
+#      - task_failed is not defined
+
+#  - name: send failure alert
+#    include_tasks: playbooks/send_failure_alert.yml
+#    tags: always
+#    when:
+#      - task_failed is defined
+#      - task_failed == true
+
