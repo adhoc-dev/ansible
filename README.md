@@ -114,21 +114,8 @@ Host default
   IdentityFile /home/dib/Private/ansible/.vagrant/machines/default/virtualbox/private_key
   IdentitiesOnly yes
   LogLevel FATAL
+# Para conectarse y ejecutar comandos
+$ vagrant ssh
 # Destruir VM
 $ vagrant destroy
-```
-
-```bash
-# Agregar VMs en hosts
-[vagrant]
-default ansible_host=127.0.0.1 ansible_port=2222 ansible_ssh_user=vagrant ansible_ssh_private_key_file=/home/dib/Private/ansible/.vagrant/machines/default/virtualbox/private_key
-# Test conexión
-$ ansible ubuntu-test -m ping
-ubuntu-test | SUCCESS => {
-    "changed": false,
-    "ping": "pong"
-}
-# Para conectarse a la VM
-$ vagrant ssh
-Welcome to Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-92-generic x86_64)
 ```
