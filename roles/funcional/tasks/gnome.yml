@@ -5,14 +5,16 @@
     pkg: ['python3-psutil']
 
 - name: GNOME Preferences - Shell - Attach Modal Dialogues
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/shell/overrides/attach-modal-dialogs"
     value: "false"
     state: present
 
 - name: GNOME Preferences - Nautilus - Clock Format
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/interface/clock-format"
     value: "'24h'"
@@ -44,7 +46,8 @@
   copy: src=files/isotipo_adhoc.png dest=/home/{{ remote_regular_user }}/.wallpaper.jpg owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=600
 
 - name: Setear GNOME wallpaper
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/background/picture-uri"
     value: "'file:///home/{{ remote_regular_user }}/.wallpaper.jpg'"
@@ -53,51 +56,59 @@
   copy: src=files/logotipo_adhoc.png dest=/home/{{ remote_regular_user }}/.logotipo_adhoc.png owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=600
 
 - name: Setear lock screen background
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/screensaver/picture-uri"
     value: "'file:///home/{{ remote_regular_user }}/.logotipo_adhoc.png'"
 
 - name: Centrar lock screen background
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/background/picture-options"
     value: "'centered'"
 
 - name: Setear background colour
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/background/primary-color"
     value: "'#d6d6d4'"
 
 - name: Mejorar performance de UI - Show seconds
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/interface/clock-show-seconds"
     value: "'false'"
 
 - name: Mejorar performance de UI - Disable animations
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/interface/enable-animations"
     value: "'false'"
 
 - name: Mejorar performance de UI - Set GTK theme
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/interface/gtk-theme"
     value: "'Adwaita-dark'"
     state: present
 
 - name: Mejorar performance de UI - Set cursor theme
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/interface/cursor-theme"
     value: "'DMZ-Black'"
     state: present
 
 - name: Mejorar performance de UI - Set icon theme
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/interface/icon-theme"
     value: "'ubuntu-mono-dark'"
@@ -105,7 +116,8 @@
 
 # Determina si el cambio entre áreas de trabajo debería suceder para las ventanas en todos los monitores o sólo para ventanas en el monitor primario.
 - name: Mejorar performance de UI - Workspaces on primary screen
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/mutter/workspaces-only-on-primary"
     value: "'true'"
@@ -113,49 +125,57 @@
 
 # Shortcuts
 - name: Shortcuts Move 01
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-1"
     value: "['<Shift><Super>F1']"
 
 - name: Shortcuts Move 02
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-2"
     value: "['<Shift><Super>F2']"
 
 - name: Shortcuts Move 03
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-3"
     value: "['<Shift><Super>F3']"
 
 - name: Shortcuts Move 04
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-4"
     value: "['<Shift><Super>F4']"
 
 - name: Shortcuts Switch 01
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-1"
     value: "['<Super>F1']"
 
 - name: Shortcuts Switch 02
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-2"
     value: "['<Super>F2']"
 
 - name: Shortcuts Switch 03
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-3"
     value: "['<Super>F3']"
 
 - name: Shortcuts Switch 04
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-4"
     value: "['<Super>F4']"

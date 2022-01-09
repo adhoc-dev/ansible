@@ -13,7 +13,8 @@
     state: present
 
 - name: Configurar layouts de teclado
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   dconf:
     key: "/org/gnome/desktop/input-sources/sources"
     value: "[('xkb', 'latam'), ('xkb', 'us')]"
