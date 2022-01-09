@@ -7,7 +7,7 @@
 - name: Instalar muchas extensiones predefinidas
   become: true
   become_user: "{{ ansible_user_id }}"
-  shell: code --install-extension {{ item }}
+  command: code --install-extension {{ item }}
   with_items: "{{ vscode_extension_list }}"
 
 - name: Definir visual studio code como editor de texto predeterminado

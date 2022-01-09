@@ -2,7 +2,6 @@
 
 docker_compose_version: "1.29.2"
 
-
 vscode_extension_list:
   # Install Visual Studio Code extensions.
   - ms-python.python
