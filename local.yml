@@ -16,13 +16,17 @@
   roles:
     - funcional
 
-- hosts: devs
+- hosts: all
   tags: devs
   become: true
+  pre_tasks:
+    - name: pre-run | update package cache (debian, etc)
+      import_role:
+        name: funcional
   roles:
     - devs
 
-- hosts: sysadmin
+- hosts: all
   tags: sysadmin
   become: true
   roles:
