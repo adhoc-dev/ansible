@@ -5,7 +5,7 @@
   when: ansible_userspace_architecture == 'x86_64'
 
 - name: Instalar muchas extensiones predefinidas
-  become: false
+  become: true
   become_user: "{{ ansible_user_id }}"
   shell: code --install-extension {{ item }}
   with_items: "{{ vscode_extension_list }}"
