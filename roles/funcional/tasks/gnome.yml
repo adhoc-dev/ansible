@@ -188,5 +188,7 @@
     mode: '+x'
 
 - name: Instalar gnome extensions
-  ansible.builtin.script:
-    cmd: /tmp/install-gnome-extensions.sh --enable --overwrite --file ./files/gnome_extension_list.txt
+  become: true
+  become_user: "{{ remote_regular_user }}"
+  script: /tmp/install-gnome-extensions.sh --overwrite --enable 1485 1301 921 6 8 750
+    

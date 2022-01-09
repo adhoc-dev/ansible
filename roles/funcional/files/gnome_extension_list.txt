@@ -1,6 +1,0 @@
-https://extensions.gnome.org/extension/1485/workspace-matrix/
-https://extensions.gnome.org/extension/1301/ubuntu-appindicators/
-https://extensions.gnome.org/extension/921/multi-monitors-add-on/
-https://extensions.gnome.org/extension/6/applications-menu/
-https://extensions.gnome.org/extension/8/places-status-indicator/
-https://extensions.gnome.org/extension/750/openweather
