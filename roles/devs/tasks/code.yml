@@ -30,7 +30,7 @@
     group: "{{ remote_regular_user }}"
     mode: 600
   with_items:
-    - { src: files/settings.json, dest: ~/.config/Code/User/ }
-    - { src: files/keybindings.json, dest: ~/.config/Code/User/ }
-    - { src: files/pycodestyle, dest: ~/.config/ }
-    - { src: files/flake8, dest: ~/.config/ }
+    - { src: ./files/settings.json, dest: ~/.config/Code/User/ }
+    - { src: ./files/keybindings.json, dest: ~/.config/Code/User/ }
+    - { src: ./files/pycodestyle, dest: ~/.config/ }
+    - { src: ./files/flake8, dest: ~/.config/ }
