@@ -1,10 +1,8 @@
 ---
-- hosts: all
-  vars_files:
-    - ./vars/vars.yml
-  become: true
+- include_vars: ./vars/vars.yml
+  tags: always
 
-  tasks:
+- block:
   - import_tasks: anydesk.yml
   - import_tasks: chrome.yml
   - import_tasks: ext.yml

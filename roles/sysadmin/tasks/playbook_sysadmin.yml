@@ -1,9 +1,0 @@
----
-- hosts: all
-  vars_files:
-    - ./tasks/vars.yml
-  become: true
-
-# Tareas para SysAdmin
-  tasks:
-    - include: tasks/packages_dev.yml

@@ -1,0 +1,7 @@
+# Instalar y configurar kubectl, alias, etc.
+- name: Instalar kubectl
+  become: true
+  apt:
+    name: kubectl
+    state: present
+    update_cache: true

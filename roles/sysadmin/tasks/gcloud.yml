@@ -1,0 +1,16 @@
+# Instalar gcloud cli
+- name: Agregar key gcloud cli
+  become: true
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+- name: Agregar repositorio de gcloud cli
+  become: true
+  apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main
+    filename: google-cloud-sdk
+
+- name: Instalar gcloud cli
+  become: true
+  apt:
+    name: google-cloud-sdk

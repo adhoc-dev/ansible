@@ -1,0 +1,9 @@
+---
+- include_vars: ./vars/vars.yml
+  tags: always
+
+- block:
+  - import_tasks: packages_devs.yml
+  - import_tasks: code.yml
+  - import_tasks: docker.yml
+  - import_tasks: python.yml
