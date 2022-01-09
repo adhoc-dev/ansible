@@ -1,7 +1,8 @@
 ---
 # Configuring Ext
 - name: Configurando ext 01
-  become: false
+  become: true
+  become_user: "{{ remote_regular_user }}"
   community.general.dconf:
     key: "/org/gnome/shell/extensions/wsmatrix/num-columns"
     value: "2"
