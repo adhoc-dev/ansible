@@ -5,9 +5,8 @@
   when: ansible_userspace_architecture == 'x86_64'
 
 - name: Instalar muchas extensiones predefinidas
-  become: true
-  become_user: "{{ ansible_user_id }}"
-  command: code --install-extension {{ item }}
+  become: false
+  ommand: "code --user-data-dir=~/$USER --install-extension {{ item }}"
   with_items: "{{ vscode_extension_list }}"
 
 - name: Definir visual studio code como editor de texto predeterminado
