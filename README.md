@@ -7,13 +7,13 @@ Laboratorio de pruebas de ansible, con el objetivo de automatizar la preparació
 - [Documentación oficial](https://docs.ansible.com/)
 - [Learn Linux TV - Getting started with Ansible](https://www.youtube.com/playlist?list=PLT98CRl2KxKEUHie1m24-wkyHpEsa4Y70)
 - [Ansible Desktop Tutorial - Repositorio](https://github.com/LearnLinuxTV/personal_ansible_desktop_configs)
-- [Repositorio](https://github.com/jackdbd/ansible-laptop)
-- [Repositorio](https://github.com/nihiliad/ansible-ubuntu-laptop)
+- [Repositorio jackdbd](https://github.com/jackdbd/ansible-laptop)
+- [Repositorio nihiliad](https://github.com/nihiliad/ansible-ubuntu-laptop)
 - [Sample Ansible setup](https://docs.ansible.com/ansible/latest/user_guide/sample_setup.html)
 - [5 everyday sysadmin tasks to automate with Ansible](https://opensource.com/article/21/3/ansible-sysadmin)
 - [Ansible for dummies](https://miquelmariano.github.io/2017/01/10/ansible-for-dummies/)
 
-### Entorno
+### Entornos
 
 - PRD: Ubuntu 20.04.3 LTS 64bits
 - LAB: Vagrant 2.2.19
@@ -36,7 +36,7 @@ Laboratorio de pruebas de ansible, con el objetivo de automatizar la preparació
 - [ ] Entorno para sysadmin
   - [x] Instalar terraform
   - [x] Instalar gcloud
-  - [ ] Ver más tareas en (script)[https://github.com/adhoc-dev/it-nb/blob/main/scripts/sysadmin.sh]
+  - [ ] Ver más tareas en [script](https://github.com/adhoc-dev/it-nb/blob/main/scripts/sysadmin.sh)
 - [ ] incluir dotfiles, keys, bash y otros archivos de configuración (~/.ssh, ~/.bashrc, ~/.bash_aliases, ~/.gitconfig, ~/.pgadmin3, ~/.pgpass, ~/odoo, /opt)
 
 ## Preparación equipo
@@ -57,12 +57,14 @@ ansible 2.9.6
 # Clonar repositorio con playbooks, tasks, etc.
 $ git clone https:https://github.com/adhoc-dev/ansible && cd ansible
 # Instalar roles
-$ ansible-playbook --tags "funcional" local.yml -K
-$ ansible-playbook --tags "devs" local.yml -K
-$ ansible-playbook --tags "sysadmin" local.yml -K
+$ ansible-playbook --tags "funcional" local.yml -K --verbose
+$ ansible-playbook --tags "devs" local.yml -K --verbose
+$ ansible-playbook --tags "sysadmin" local.yml -K --verbose
 ```
 
 ## Post instalación
+
+Algunos comandos artesanales pendientes de automatizar:
 
 ```bash
 # Setear password para conexión rápida de Anydesk
