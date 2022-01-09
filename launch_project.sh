@@ -30,7 +30,7 @@ echo "[Projecto Ansible] Clonar repositorio"
 git clone https://github.com/adhoc-dev/ansible.git && cd ansible
 
 # Función para aplicar el rol de Ansible según quien use la notebook
-function Launch() {
+function Launch {
 # Validar el rol
 read -e -p "Qué rol tendrá quien use este notebook? ('F'uncional, 'D'ev o 'S'ysadmin ): [F/D/S] = " USER_TYPE
 
