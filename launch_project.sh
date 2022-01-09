@@ -19,15 +19,14 @@ sudo apt-get install -y python3-setuptools
 echo "[Preparar notebook] Instalar Ansible con apt"
 sudo apt-get install -y ansible
 
-# Para instalar plugins / colecciones de la comunidad
-echo "[Preparar notebook] Instalar colecciones de Ansible"
-ansible-galaxy collection install community.general
-
 echo '[Preparar notebook] Notebook lista!'
 
 # Deploy projecto Ansible, implementación
 echo "[Projecto Ansible] Clonar repositorio"
 git clone https://github.com/adhoc-dev/ansible.git && cd ansible
+# Para instalar plugins / colecciones de la comunidad
+echo "[Preparar notebook] Instalar colecciones de Ansible"
+ansible-galaxy collection install community.general
 
 # Función para aplicar el rol de Ansible según quien use la notebook
 function Launch {
