@@ -43,7 +43,6 @@ read -e -p "Qué rol tendrá quien use este notebook? ('F'uncional, 'D'ev o 'S'y
         ansible-playbook --tags "funcional" local.yml -K --verbose
     fi
 
-
     if [[ "$USER_TYPE" == "D" ]]; then
         ansible-playbook --tags "devs" local.yml -K --verbose
     fi

@@ -1,6 +1,6 @@
 ---
 - include_vars: ./vars/vars.yml
-  tags: always
+  tags: devs
 
 - block:
   - import_tasks: packages_dev.yml

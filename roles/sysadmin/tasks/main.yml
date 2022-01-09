@@ -3,10 +3,11 @@
 # To-do: https://github.com/adhoc-dev/it-nb/blob/main/scripts/sysadmin.sh
 
 - include_vars: ./vars/vars.yml
-  tags: always
+  tags: sysadmin
 
 - block:
   - import_tasks: terraform.yml
   - import_tasks: gcloud.yml
   - import_tasks: kubectl.yml
 #  - import_tasks: rancher.yml
+#  - import_tasks: vagrant.yml
