@@ -40,16 +40,16 @@ read -e -p "Qué rol tendrá quien use este notebook? ('F'uncional, 'D'ev o 'S'y
 
 # Ejecutamos playbook / rol correspondiente
     if [[ "$USER_TYPE" == "F" ]]; then
-        ansible-playbook --tags "funcional" local.yml -K
+        ansible-playbook --tags "funcional" local.yml -K --verbose
     fi
 
 
     if [[ "$USER_TYPE" == "D" ]]; then
-        ansible-playbook --tags "devs" local.yml -K
+        ansible-playbook --tags "devs" local.yml -K --verbose
     fi
 
     if [[ "$USER_TYPE" == "S" ]]; then
-        ansible-playbook --tags "sysadmin" local.yml -K
+        ansible-playbook --tags "sysadmin" local.yml -K --verbose
     fi
 }
 
