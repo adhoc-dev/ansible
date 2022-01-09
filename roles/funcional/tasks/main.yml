@@ -3,10 +3,11 @@
   tags: always
 
 - block:
+  - import_tasks: packages.yml
   - import_tasks: anydesk.yml
   - import_tasks: chrome.yml
   - import_tasks: ext.yml
   - import_tasks: gnome.yml
   - import_tasks: language.yml
   - import_tasks: meld.yml
-  - import_tasks: packages.yml
+
