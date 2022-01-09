@@ -57,9 +57,9 @@ ansible 2.9.6
 # Clonar repositorio con playbooks, tasks, etc.
 $ git clone https:https://github.com/adhoc-dev/ansible && cd ansible
 # Instalar roles
-$ ansible-playbook local.yml -K --tags "funcional"
-$ ansible-playbook local.yml -K --tags "devs"
-$ ansible-playbook local.yml -K --tags "sysadmin"
+$ ansible-playbook --tags "funcional" local.yml -K
+$ ansible-playbook --tags "devs" local.yml -K
+$ ansible-playbook --tags "sysadmin" local.yml -K
 ```
 
 ## Post instalación
@@ -90,6 +90,8 @@ $ ansible-pull -U {repositorio.git} {playbook.yml} -K
 ```
 
 ### Ambiente dev con vagrant
+
+Esto no está automatizado aun, sólo me conecto a la VM y ejecuto los comandos...
 
 - [Documentación](https://www.vagrantup.com/)
 - [Ansible Provisioner](https://www.vagrantup.com/docs/provisioning/ansible)

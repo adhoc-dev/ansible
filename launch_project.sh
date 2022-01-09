@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# Script para preparar notebook pre-deploy de roles de Ansible
-# Eventualmente va a detectar el hostname del equipo y deployar el rol de Ansible que corresponda
+# Script para preparar notebooks. Primero hace unas magias y luego aplica el rol de Ansible que corresponda
 
 # Actualizar sistema
 echo "[Preparar notebook] Actualizar ambiente de trabajo"
@@ -24,7 +23,7 @@ sudo apt-get install -y ansible
 echo "[Preparar notebook] Instalar colecciones de Ansible"
 ansible-galaxy collection install community.general
 
-echo '[Preparar notebook] Listo!'
+echo '[Preparar notebook] Notebook lista!'
 
 # Deploy projecto Ansible, implementación
 echo "[Projecto Ansible] Clonar repositorio"
@@ -42,16 +41,16 @@ read -e -p "Qué rol tendrá quien use este notebook? ('F'uncional, 'D'ev o 'S'y
 
 # Ejecutamos playbook / rol correspondiente
     if [[ "$USER_TYPE" == "F" ]]; then
-        ansible-playbook local.yml -K --tags "funcional"
+        $ ansible-playbook --tags "funcional" local.yml -K
     fi
 
 
     if [[ "$USER_TYPE" == "D" ]]; then
-        ansible-playbook local.yml -K --tags "devs"
+        $ ansible-playbook --tags "devs" local.yml -K
     fi
 
     if [[ "$USER_TYPE" == "S" ]]; then
-        ansible-playbook local.yml -K --tags "sysadmin"
+        $ ansible-playbook --tags "sysadmin" local.yml -K
     fi
 }
 

@@ -1,39 +1,38 @@
 ---
 # tasks to complete before running roles
-- hosts: all
+- hosts: laptop
   tags: always
   become: true
   pre_tasks:
-    - name: pre-run | update package cache (debian, etc)
+    - name: Actualizar caché
       tags: always
       apt: update_cache=yes
       changed_when: False
 
 # run roles
-- hosts: all
+- hosts: laptop
   tags: funcional
   become: true
   roles:
     - funcional
 
-- hosts: all
+- hosts: laptop
   tags: devs
   become: true
-  pre_tasks:
-    - name: pre-run | update package cache (debian, etc)
-      import_role:
-        name: funcional
   roles:
+    - funcional
     - devs
 
-- hosts: all
+- hosts: laptop
   tags: sysadmin
   become: true
   roles:
+    -  funcional
+    - devs
     - sysadmin
 
 # end of run cleanup and reporting
-- hosts: all
+- hosts: laptop
   become: true
   tasks:
   - name: cleanup package cache (debian and ubuntu)
