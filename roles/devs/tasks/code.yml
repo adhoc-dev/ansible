@@ -9,6 +9,7 @@
   become_user: "{{ remote_regular_user }}"
   command: "code --install-extension {{ item }}"
   with_items: "{{ vscode_extension_list }}"
+  changed_when: False
 
 - name: Definir visual studio code como editor de texto predeterminado
   command: "xdg-mime default code.desktop {{ text_types }}"
