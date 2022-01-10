@@ -30,9 +30,23 @@ ansible-galaxy collection install community.general
 
 # Para ejecutar el rol correspondiente, sin función ni validación (y bue)
 function launch() {
+    read -e -p "Qué rol tendrá quien use este notebook? ('funcional', 'devs' o 'sysadmin' ): " USER_TYPE
 
-read -e -p "Qué rol tendrá quien use este notebook? ('funcional', 'devs' o 'sysadmin' ): " USER_TYPE
-ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose
+    while [[ "$USER_TYPE" != "funcional" && "$USER_TYPE" != "devs" && "$USER_TYPE" != "sysadmin" ]]; do
+        ReadLine "Ingresar el rol correctamente: " USER_TYPE
+    done
+
+    if [[ "$USER_TYPE" == "funcional" ]]; then
+        ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose
+    fi
+
+    if [[ "$USER_TYPE" == "devs" ]]; then
+        ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose
+    fi
+
+    if [[ "$USER_TYPE" == "sysadmin" ]]; then
+        ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose
+    fi
 }
 
 launch
