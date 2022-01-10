@@ -7,7 +7,7 @@
 - name: Configurando Meld 01
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/meld/indent-width"
     value: "4"
     state: present
@@ -15,7 +15,7 @@
 - name: Configurando Meld 02
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/meld/insert-spaces-instead-of-tabs"
     value: "true"
     state: present
@@ -23,7 +23,7 @@
 - name: Configurando Meld 03
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/meld/highlight-syntax"
     value: "true"
     state: present
@@ -31,7 +31,7 @@
 - name: Configurando Meld 04
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/meld/draw-spaces"
     value: "['space', 'tab', 'newline', 'nbsp', 'leading', 'text', 'trailing']"
     state: present
@@ -39,7 +39,7 @@
 - name: Configurando Meld 05
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/meld/show-line-numbers"
     value: "true"
     state: present
@@ -47,7 +47,7 @@
 - name: Configurando Meld 06
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/meld/highlight-current-line"
     value: "true"
     state: present
@@ -55,7 +55,7 @@
 - name: Configurando Meld 07
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/meld/wrap-mode"
     value: "'word'"
     state: present
@@ -63,7 +63,7 @@
 - name: Configurando Meld 08
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/meld/vc-commit-margin"
     value: "80"
     state: present
@@ -71,7 +71,7 @@
 - name: Configurando Meld 09
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/meld/text-filters"
     value: "[('All whitespace', true, '[ \\\t\\\r\\\f\\\v]*')]"
     state: present
