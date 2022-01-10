@@ -28,7 +28,7 @@ Laboratorio de pruebas de ansible, con el objetivo de automatizar la preparació
   - [x] Install flake8 and pep8 for Python 2 and Python 3
   - [x] Install Yakuake
   - [ ] Install lint hook
-  - [ ] Enable history-search with arrows
+  - [x] Enable history-search with arrows
   - [ ] Install rancher1 + rancher2
 - [ ] Actualización automática (ansible-pull + cron?)
 - [ ] Preparar nuevo ambiente de desarrollo
@@ -56,7 +56,7 @@ ansible 2.9.6
 ```bash
 # Clonar repositorio con playbooks, tasks, etc.
 $ git clone https:https://github.com/adhoc-dev/ansible && cd ansible
-# Instalar roles
+# Deployar roles
 $ ansible-playbook --tags "funcional" local.yml -K --verbose
 $ ansible-playbook --tags "devs" local.yml -K --verbose
 $ ansible-playbook --tags "sysadmin" local.yml -K --verbose

@@ -1,0 +1,7 @@
+---
+- name: Agregar apps al panel lateral
+  become: true
+  become_user: "{{ remote_regular_user }}"
+  community.general.dconf:
+    key: "/org/gnome/shell/favorite-apps"
+    value: "['google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'org.kde.yakuake.desktop', 'code.desktop']"

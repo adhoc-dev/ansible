@@ -1,0 +1,15 @@
+---
+- name: Descargar script zsh
+  get_url:
+    url: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    dest: /tmp/install.sh
+    mode: '+x'
+
+- name: Instalar gnome extensions
+  become: true
+  become_user: "{{ remote_regular_user }}"
+  script: /tmp/install-gnome-extensions.sh --overwrite --enable 1485 1301 921 6 8 750
+    
+
+- name: Copiar zshrc
+  copy: src=files/.zshrc dest=/home/{{ remote_regular_user }}/.zshrc owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=600

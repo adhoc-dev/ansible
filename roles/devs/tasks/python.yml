@@ -29,3 +29,17 @@
   become: true
   pip:
     name: pre-commit
+
+# Install lint hook
+- name: Git checkout
+  ansible.builtin.git:
+    repo: 'https://github.com/OCA/maintainer-quality-tools.git'
+    dest: /srv/checkout
+    version: release-0.22
+
+        rm -rf ${HOME}/lint-hook
+        git clone https://github.com/OCA/maintainer-quality-tools ${HOME}/lint-hook
+        cd ${HOME}/lint-hook
+        sudo pip2 install -r requirements.txt
+        sudo ln -sf ${HOME}/lint-hook/git/* /usr/share/git-core/templates/hooks
+        cd ${INSTALLDIR}
