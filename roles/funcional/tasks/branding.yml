@@ -4,7 +4,7 @@
 - name: Setear GNOME wallpaper
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/desktop/background/picture-uri"
     value: "'file:///home/{{ remote_regular_user }}/.wallpaper.jpg'"
 
@@ -14,20 +14,20 @@
 - name: Setear lock screen background
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/desktop/screensaver/picture-uri"
     value: "'file:///home/{{ remote_regular_user }}/.logotipo_adhoc.png'"
 
 - name: Centrar lock screen background
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/desktop/background/picture-options"
     value: "'centered'"
 
 - name: Setear background colour
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/desktop/background/primary-color"
     value: "'#d6d6d4'"

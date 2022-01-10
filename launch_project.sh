@@ -22,8 +22,7 @@ sudo apt-get install -y python3-setuptools
 # Instalar Ansible
 echo "[Preparar notebook] Instalar Ansible con apt"
 sudo apt-get install -y ansible
-echo "[Preparar notebook] Instalar colecciones de Ansible"
-ansible-galaxy collection install community.general
+
 echo '[Preparar notebook] Notebook lista!'
 
 # Deploy projecto Ansible, implementación

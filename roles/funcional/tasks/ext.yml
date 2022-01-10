@@ -3,7 +3,7 @@
 - name: Configurando ext 01
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/shell/extensions/wsmatrix/num-columns"
     value: "2"
     state: present
@@ -11,7 +11,7 @@
 - name: Configurando ext 02
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/shell/extensions/wsmatrix/num-rows"
     value: "2"
     state: present
@@ -19,7 +19,7 @@
 - name: Configurando ext 03
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/shell/extensions/wsmatrix/show-overview-grid"
     value: "true"
     state: present
@@ -27,7 +27,7 @@
 - name: Configurando ext 04
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/shell/extensions/openweather/city"
     value: "'-32.9575, -60.639444>Rosario, Santa Fe>-1'"
     state: present
@@ -35,7 +35,7 @@
 - name: Configurando ext 05
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/shell/extensions/openweather/unit"
     value: "'celsius'"
     state: present
@@ -43,7 +43,7 @@
 - name: Configurando ext 06
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/shell/extensions/openweather/wind-speed-unit"
     value: "'m/s'"
     state: present
@@ -51,7 +51,7 @@
 - name: Configurando ext 07
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/shell/extensions/openweather/pressure-unit"
     value: "'hPa'"
     state: present
@@ -59,7 +59,7 @@
 - name: Configurando ext 08
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/scroll-action"
     value: "'cycle-windows'"
     state: present
@@ -67,7 +67,7 @@
 - name: Configurando ext 09
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/isolate-workspaces"
     value: "true"
     state: present
@@ -75,7 +75,7 @@
 - name: Configurando ext 10
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/shell/extensions/dash-to-dock/multi-monitor"
     value: "true"
     state: present
@@ -83,7 +83,7 @@
 - name: Configurando ext 11
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/shell/window-switcher/current-workspace-only"
     value: "true"
     state: present
@@ -91,7 +91,7 @@
 - name: Configurando ext 12
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/shell/app-switcher/current-workspace-only"
     value: "true"
     state: present
@@ -99,7 +99,7 @@
 - name: Configurando ext 13
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/desktop/interface/clock-show-date"
     value: "true"
     state: present
@@ -107,7 +107,7 @@
 - name: Configurando ext 14
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/desktop/interface/show-battery-percentage"
     value: "true"
     state: present
@@ -115,7 +115,7 @@
 - name: Configurando ext 15
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/mutter/dynamic-workspaces"
     value: "false"
     state: present
@@ -123,7 +123,7 @@
 - name: Configurando ext 16
   become: true
   become_user: "{{ remote_regular_user }}"
-  community.general.dconf:
+  dconf:
     key: "/org/gnome/desktop/wm/preferences/num-workspaces"
     value: "4"
     state: present
