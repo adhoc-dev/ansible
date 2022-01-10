@@ -8,7 +8,7 @@
     pkg: ['language-pack-es', 'language-pack-gnome-es', 'language-pack-es-base', 'language-pack-gnome-es-base']
 
 - name: Validar que locale existe
-  community.general.locale_gen:
+  locale_gen:
     name: es_AR.UTF-8
     state: present
 
