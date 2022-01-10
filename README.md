@@ -46,16 +46,16 @@ Esto fue cambiando muchas veces, desde algo más artesanal instalando con comand
 ```bash
 # Probando deploy con script
 $ curl https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh | sudo bash
-# El script actualiza paquetes, instala algunas dependencias, clona el proyecto y ejecuta el playbook que corresponda según el rol (aun en experimentación)
-$ ansible --version
-ansible 2.9.6
+# Revisar o editar script
+$ wget https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh
+$ sudo bash launch_project.sh
 ```
 
 ### Deploy artesanal ambientes de trabajo (Funcional / Devs / SRE)
 
 ```bash
 # Clonar repositorio con playbooks, tasks, etc.
-$ git clone https:https://github.com/adhoc-dev/ansible && cd ansible
+$ git clone https://github.com/adhoc-dev/ansible && cd ansible
 # Deployar roles
 $ ansible-playbook --tags "funcional" local.yml -K --verbose
 $ ansible-playbook --tags "devs" local.yml -K --verbose
@@ -100,7 +100,7 @@ Esto no está automatizado aun, sólo me conecto a la VM y ejecuto los comandos.
 
 ```bash
 # Lanzar proyecto ubuntu20.04 (crea archivo Vagrantfile)
-$ vagrant init ubuntu/focal64
+$ vagrant init generic/ubuntu2004
 $ vagrant plugin install vagrant-vbguest # Dependencia
 # Levantar VM
 $ vagrant up
@@ -122,4 +122,6 @@ Host default
 $ vagrant ssh
 # Destruir VM
 $ vagrant destroy
+# Para limpiar el ambiente y borrar las boxes
+$ vagrant box list | cut -f 1 -d ' ' | xargs -L 1 vagrant box remove -f
 ```
