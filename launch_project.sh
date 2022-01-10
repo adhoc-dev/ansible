@@ -28,27 +28,6 @@ git clone https://github.com/adhoc-dev/ansible.git && cd ansible
 echo "[Preparar notebook] Instalar colecciones de Ansible"
 ansible-galaxy collection install community.general
 
-# Función para aplicar el rol de Ansible según quien use la notebook
-function Launch() {
-# Validar el rol
-read -e -p "Qué rol tendrá quien use este notebook? ('F'uncional, 'D'ev o 'S'ysadmin ): [F/D/S] = " USER_TYPE
-
-    while [[ "$USER_TYPE" != "F" && "$USER_TYPE" != "D" && "$USER_TYPE" != "S" ]]; do
-        read -e -p "Mmm nop, de nuevo por favor. [F/D/S]: " USER_TYPE
-    done
-
-# Ejecutamos playbook / rol correspondiente
-    if [[ "$USER_TYPE" == "F" ]]; then
-        ansible-playbook --tags "funcional" local.yml -K --verbose
-    fi
-
-    if [[ "$USER_TYPE" == "D" ]]; then
-        ansible-playbook --tags "devs" local.yml -K --verbose
-    fi
-
-    if [[ "$USER_TYPE" == "S" ]]; then
-        ansible-playbook --tags "sysadmin" local.yml -K --verbose
-    fi
-}
-
-Launch
+# Para ejecutar el rol correspondiente, sin función ni validación (y bue)
+read -e -p "Qué rol tendrá quien use este notebook? ('funcional', 'dev' o 'sysadmin' ): " USER_TYPE
+ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose
