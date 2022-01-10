@@ -31,7 +31,7 @@ ansible-galaxy collection install community.general
 # Para ejecutar el rol correspondiente, sin función ni validación (y bue)
 function launch() {
 
-read -e -p "Qué rol tendrá quien use este notebook? ('funcional', 'dev' o 'sysadmin' ): " USER_TYPE
+read -e -p "Qué rol tendrá quien use este notebook? ('funcional', 'devs' o 'sysadmin' ): " USER_TYPE
 ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose
 }
 
