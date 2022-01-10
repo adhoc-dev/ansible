@@ -33,7 +33,7 @@ function launch() {
     read -e -p "Qué rol tendrá quien use este notebook? ('funcional', 'devs' o 'sysadmin' ): " USER_TYPE
 
     while [[ "$USER_TYPE" != "funcional" && "$USER_TYPE" != "devs" && "$USER_TYPE" != "sysadmin" ]]; do
-        read -e -p "Ingresar el rol correctamente: " USER_TYPE
+        read -e -p "Ingresar el rol correctamente ('funcional', 'devs' o 'sysadmin'): " USER_TYPE
     done
 
     if [[ "$USER_TYPE" == "funcional" ]]; then
