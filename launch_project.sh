@@ -29,7 +29,7 @@ echo "[Preparar notebook] Instalar colecciones de Ansible"
 ansible-galaxy collection install community.general
 
 # Función para aplicar el rol de Ansible según quien use la notebook
-function Launch {
+function Launch() {
 # Validar el rol
 read -e -p "Qué rol tendrá quien use este notebook? ('F'uncional, 'D'ev o 'S'ysadmin ): [F/D/S] = " USER_TYPE
 
