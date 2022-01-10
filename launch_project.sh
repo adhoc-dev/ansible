@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
-# Para guardar logs
-exec 3>&1 4>&2
-trap 'exec 2>&4 1>&3' 0 1 2 3
-exec 1>log.out 2>&1
-
 # Script para preparar notebooks. Primero hace unas magias y luego aplica el rol de Ansible que corresponda
 
 # Actualizar sistema
@@ -28,7 +23,6 @@ echo '[Preparar notebook] Notebook lista!'
 # Deploy projecto Ansible, implementación
 echo "[Projecto Ansible] Clonar repositorio"
 git clone https://github.com/adhoc-dev/ansible.git && cd ansible
-# Para instalar plugins / colecciones de la comunidad
 
 # Para ejecutar el rol correspondiente, sin función ni validación (y bue)
 function launch() {
