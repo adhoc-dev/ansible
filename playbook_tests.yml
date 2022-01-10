@@ -1,7 +1,0 @@
----
-- hosts: all
-  become: true
-
-# Tareas para devs
-  tasks:
-    - include: tasks/gnome.yml
