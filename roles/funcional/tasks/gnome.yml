@@ -180,6 +180,14 @@
     key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-4"
     value: "['<Super>F4']"
 
+# Add Fav Apps
+- name: Agregar apps al panel lateral
+  become: true
+  become_user: "{{ remote_regular_user }}"
+  community.general.dconf:
+    key: "/org/gnome/shell/favorite-apps"
+    value: "['google-chrome.desktop', 'org.gnome.Nautilus.desktop']"
+
 # Install the Extensions using https://github.com/cyfrost/install-gnome-extensions/
 - name: Descargar script para instalar gnome extensions
   get_url:
@@ -191,4 +199,3 @@
   become: true
   become_user: "{{ remote_regular_user }}"
   script: /tmp/install-gnome-extensions.sh --overwrite --enable 1485 1301 921 6 8 750
-    
