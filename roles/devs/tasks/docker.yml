@@ -68,7 +68,3 @@
 - name: Mover docker-compose a /usr/local/bin/docker-compose
   command: mv ~/docker-compose /usr/local/bin/docker-compose
   when: docker_compose.stat.exists
-
-    # Config DockerHub
-#    ReadLine "Please enter Dockerhub token:" DOCKER_TOKEN
-#    sudo docker login --username adhocsa --password $DOCKER_TOKEN
