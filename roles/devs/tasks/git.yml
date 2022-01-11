@@ -1,61 +1,109 @@
-    PrintMsg "SSH Keys"
-    ssh-keygen -t rsa -b 4096 -C $USER_MAIL -q -N "" -f ~/.ssh/id_rsa
-    cp ./static/text/sshconfig ~/.ssh/config
+---
+# Instalar github cli
+- name: Agregar la key de github cli
+  become: true
+  apt_key:
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    state: present
 
-    # Configure on Github
-    PrintMsg "\nPlease add this key to github https://github.com/settings/ssh/new and press Enter! \n"
-    cat ~/.ssh/id_rsa.pub
-    # TODO: Auto check this https://github.com/$USER.keys
-    ReadLine "When this is ready, press Enter!" LASTLINE
-    PrintMsg "Installing github cli"
-    # +info https://cli.github.com/
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
-    sudo apt-add-repository https://cli.github.com/packages
-    sudo apt update
-    sudo apt install gh
+- name: Agregar repositorio de github cli
+  become: true
+  apt_repository:
+    repo: deb  https://cli.github.com/packages stable main
+    filename: gh
 
-    PrintMsg "Configuring Git"
-    git config --global user.email $USER_MAIL
-    git config --global user.name "`getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1`"
-    # Set VS as default editor (https://stackoverflow.com/questions/30024353/how-to-use-visual-studio-code-as-default-editor-for-git/36644561#36644561)
-    git config --global core.editor "code --wait"
-    git config --global diff.tool "default-difftool"
-    #git config --global -e
-    git config --global difftool.default-difftool.cmd "code --wait --diff \$LOCAL \$REMOTE"
-    git config --global push.default nothing
-    git config --global pull.default nothing
-    #
-    #git config --global pull.rebase false  # merge (the default strategy)
-    #git config --global pull.rebase true   # rebase
-    git config --global pull.ff only       # fast-forward only
-    # get git diff fancy
-    # mkdir -p /tmp/.local/app/
-    # cd /tmp/.local/app/
-    # git clone git@github.com:so-fancy/diff-so-fancy.git
-    # ln -s /tmp/.local/app/diff-so-fancy/diff-so-fancy ~/.local/bin/diff-so-fancy
-    # git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
-    # git config --global interactive.diffFilter "diff-so-fancy --patch"
-    # git config --global color.ui true
-    # git config --global color.diff-highlight.oldnormal "red bold"
-    # git config --global color.diff-highlight.oldhighlight "red bold 52"
-    # git config --global color.diff-highlight.newnormal "green bold"
-    # git config --global color.diff-highlight.newhighlight "green bold 22"
-    # git config --global color.diff.meta yellow
-    # git config --global color.diff.frag "magenta bold"
-    # git config --global color.diff.commit "yellow bold"
-    # git config --global color.diff.old "red bold"
-    # git config --global color.diff.new "green bold"
-    # git config --global color.diff.whitespace "red reverse"
-    # Global Hooks to prevent push to master
-    sudo mkdir -p /etc/git/hooks
-    echo -e '#!/bin/sh\n\nif [ -x `pwd`/.git/hooks/$(basename $0) ];\nthen\n\texec `pwd`/.git/hooks/$(basename $0)\nfi' | sudo tee /etc/git/hooks/{applypatch-msg,commit-msg,fsmonitor-watchman,post-update,pre-applypatch,pre-commit,pre-rebase,pre-receive,prepare-commit-msg,update} > /dev/null
-    sudo cp -rf ./static/text/pre-push /etc/git/hooks/pre-push
-    sudo chmod +x /etc/git/hooks/*
-    git config --global --add core.hooksPath /etc/git/hooks/
+- name: Instalar github cli
+  become: true
+  apt:
+    name: gh
+  changed_when: false
+
+## Crear keys y configurar ssh
+- name: Crear carpeta para ssh key
+  file:
+    path: "/home/{{ remote_regular_user }}/.ssh"
+    state: directory
+    owner: "{{ remote_regular_user }}"
+    group: "{{ remote_regular_user }}"
+    mode: "744"
+
+- name: Generar SSH key "{{ remote_regular_user }}"
+  become: true
+  become_user: "{{ remote_regular_user }}"
+  openssh_keypair:
+    path: "/home/{{ remote_regular_user }}/.ssh/id_rsa"
+    type: rsa
+    size: 4096
+    state: present
+    force: true
+    owner: "{{ remote_regular_user }}"
+
+- name: Copiar configuraciones de sshconfig
+  copy: src=./files/sshconfig dest=/home/{{ remote_regular_user }}/.ssh/config owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=744
+
+# Configurando git
+- name: Definiendo editor por defecto
+  git_config:
+    name: core.editor
+    value: code --wait
+    scope: global
+
+- name: Configuraciones globales para git 01
+  git_config:
+    name: diff.tool
+    value: default-difftool
+    scope: global
+
+- name: Configuraciones globales para git 02
+  git_config:
+    name: difftool.default-difftool.cmd
+    value: code --wait --diff \$LOCAL \$REMOTE
+    scope: global
+
+- name: Configuraciones globales para git 03
+  git_config:
+    name: push.default
+    value: nothing
+    scope: global
+
+- name: Configuraciones globales para git 04
+  git_config:
+    name: pull.default
+    value: nothing
+    scope: global
+
+- name: Configuraciones globales para git 05
+  git_config:
+    name: pull.ff
+    value: only
+    scope: global
+
+# Global Hooks to prevent push to master
+- name: Crear carpeta para hooks
+  file:
+    path: "/etc/git/hooks"
+    state: directory
+    owner: "{{ remote_regular_user }}"
+    group: "{{ remote_regular_user }}"
+    mode: "744"
+    # sudo chmod +x /etc/git/hooks/*
+
+- name: Comando mágico para hooks
+  become: true
+  become_user: "{{ remote_regular_user }}"
+  command: "echo -e '#!/bin/sh\n\nif [ -x `pwd`/.git/hooks/$(basename $0) ];\nthen\n\texec `pwd`/.git/hooks/$(basename $0)\nfi' | sudo tee /etc/git/hooks/{applypatch-msg,commit-msg,fsmonitor-watchman,post-update,pre-applypatch,pre-commit,pre-rebase,pre-receive,prepare-commit-msg,update} > /dev/null"
+  changed_when: false
+
+- name: Copiar archivo pre-push
+  copy: src=./files/pre-push dest=/etc/git/hooks/pre-push owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=744
+
+- name: Configurar path para hooks
+  git_config:
+    name: core.hooksPath
+    value: /etc/git/hooks/
+    scope: global
 
 # Git-AdHoc Prompt
-    if [[ ! -f ~/.prompt_git ]]; then
-        cd ${INSTALLDIR}
-        cp ./static/text/.prompt_git ~/.prompt_git
-        grep -qxF "source \${HOME}/.prompt_git" ~/.bashrc || echo "source \${HOME}/.prompt_git" >> ~/.bashrc
-    fi
+- name: Copiar archivo .prompt
+  copy: src=./files/.prompt_git dest=/home/{{ remote_regular_user }}/.prompt_git owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=744
+  changed_when: false

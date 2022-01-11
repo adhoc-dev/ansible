@@ -115,3 +115,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Git-AdHoc Prompt
+source \${HOME}/.prompt_git" >> ~/.bashrc
