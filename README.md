@@ -71,6 +71,17 @@ Algunos comandos artesanales pendientes de automatizar:
 $ echo <some_password> | sudo anydesk --set-password and anydesk --get-id
 # Login en gcloud (para sysadmin)
 $ gcloud auth login
+# Configurar DockerHub, luego de generar el token en la organización
+# https://hub.docker.com/settings/security
+$ sudo docker login --username adhocsa --password {$DOCKER_TOKEN}
+# Configurar ssh en github
+$ gh auth login
+$ gh ssh-key add /home/$USER/.ssh/id_rsa.pub
+# Validar: https://github.com/$USER.keys
+# Configurar login a Rancher1
+$ rancher --url https://ra.adhoc.com.ar/v1 --access-key {$RANCHER_AC_KEY} --secret-key {$RANCHER_SE_KEY}
+# Configurar login a Rancher2
+$ rancher2 login https://ra.adhoc.ar/v3 --token {bearer-token}
 ```
 
 ## Ansible: Algunos apuntes
