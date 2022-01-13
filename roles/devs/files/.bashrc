@@ -117,4 +117,7 @@ if ! shopt -oq posix; then
 fi
 
 # Git-AdHoc Prompt
-source \${HOME}/.prompt_git" >> ~/.bashrc
+source \${HOME}/.prompt_git >> ~/.bashrc
+
+# Alias para el comando / scrip r2 (rancher2 y k8s)
+alias r2='/home/$USER/.rke_byadhoc.sh'
