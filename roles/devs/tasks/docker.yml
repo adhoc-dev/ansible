@@ -8,11 +8,11 @@
     update_cache: yes
   vars:
     packages:
-    - apt-transport-https
-    - ca-certificates
-    - curl
-    - software-properties-common
-    - gnupg-agent
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg-agent
 
 - name: Agregar docker GPG apt Key
   become: true
@@ -31,17 +31,17 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: yes
+    update_cache: true
   vars:
     packages:
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
 
 - name: Habilitar e iniciar docker service
   systemd:
     name: docker
-    enabled: yes
+    enabled: true
     state: started
 
 - name: Crear grupo docker
@@ -53,7 +53,7 @@
   user:
     name: "{{ ansible_user_id }}"
     groups: docker
-    append: yes
+    append: true
 
 - name: Descargar docker-compose {{ docker_compose_version }}
   get_url:
