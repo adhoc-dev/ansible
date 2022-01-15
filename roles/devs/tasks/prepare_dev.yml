@@ -60,27 +60,21 @@
 - name: Editar odoo_minor de .env
   lineinfile:
     path: /home/{{ remote_regular_user }}/odoo/15/.env
-    # The String to Search
     regexp: "^ODOO_MINOR="
-    # The String to Replace
     line: "ODOO_MINOR=15.0-enterprise"
     state: present
 
 - name: Editar domain de .env
   lineinfile:
     path: /home/{{ remote_regular_user }}/odoo/15/.env
-    # The String to Search
     regexp: "^DOMAIN="
-    # The String to Replace
     line: "DOMAIN=15.odoo.localhost/"
     state: present
 
 - name: Editar odoo_version de .env
   lineinfile:
     path: /home/{{ remote_regular_user }}/odoo/15/.env
-    # The String to Search
     regexp: "^ODOO_VERSION="
-    # The String to Replace
     line: "ODOO_VERSION=15"
     state: present
 

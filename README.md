@@ -27,9 +27,9 @@ Laboratorio de pruebas de ansible, con el objetivo de automatizar la preparació
   - [x] Install PyLint for Python 2 and Python 3
   - [x] Install flake8 and pep8 for Python 2 and Python 3
   - [x] Install Yakuake
-  - [ ] Install lint hook
+  - [x] Install lint hook
   - [x] Enable history-search with arrows
-  - [ ] Install rancher1 + rancher2
+  - [x] Install rancher1 + rancher2
 - [ ] Actualización automática (ansible-pull + cron?)
 - [ ] Preparar nuevo ambiente de desarrollo
   - [ ] Login, tokens Github, Rancher, DockerHub
@@ -104,7 +104,7 @@ $ ansible-pull -U {repositorio.git} {playbook.yml} -K
 
 ### Ambiente dev con vagrant
 
-Esto no está automatizado aun, sólo me conecto a la VM y ejecuto los comandos...
+Esto no está automatizado ni nada, sólo me conecto a la VM y ejecuto los comandos...
 
 - [Documentación](https://www.vagrantup.com/)
 - [Ansible Provisioner](https://www.vagrantup.com/docs/provisioning/ansible)
@@ -123,14 +123,12 @@ Host default
   HostName 127.0.0.1
   User vagrant
   Port 2222
-  UserKnownHostsFile /dev/null
-  StrictHostKeyChecking no
-  PasswordAuthentication no
-  IdentityFile /home/dib/Private/ansible/.vagrant/machines/default/virtualbox/private_key
-  IdentitiesOnly yes
-  LogLevel FATAL
+...
 # Para conectarse y ejecutar comandos
 $ vagrant ssh
+# Guardar y recuperar estados de la box (sin nombre ni parámetros adicionales)
+$ vagrant snapshot push
+$ vagrant snapshot pop --no-delete
 # Destruir VM
 $ vagrant destroy
 # Para limpiar el ambiente y borrar las boxes
