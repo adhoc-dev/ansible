@@ -30,16 +30,32 @@
   pip:
     name: pre-commit
 
-# Install lint hook
-- name: Git checkout
-  ansible.builtin.git:
-    repo: 'https://github.com/OCA/maintainer-quality-tools.git'
-    dest: /srv/checkout
-    version: release-0.22
+# Instalar lint hooks
+- name: Limpiar carpeta
+  file:
+    path: /home/{{ remote_regular_user }}/lint-hook
+    state: absent
+    force: true
 
-        rm -rf ${HOME}/lint-hook
-        git clone https://github.com/OCA/maintainer-quality-tools ${HOME}/lint-hook
-        cd ${HOME}/lint-hook
-        sudo pip2 install -r requirements.txt
-        sudo ln -sf ${HOME}/lint-hook/git/* /usr/share/git-core/templates/hooks
-        cd ${INSTALLDIR}
+- name: Clonar repositorio
+  git:
+    repo: https://github.com/OCA/maintainer-quality-tools
+    dest: /home/{{ remote_regular_user }}/lint-hook
+    version: master
+
+- name: Instalar requirements
+  pip:
+    chdir: /home/{{ remote_regular_user }}/lint-hook
+    requirements: requirements.txt
+
+# Fix pendiente: Usar módulo name y no command
+# - name: Crear link simbólico
+#   file:
+#     src: /home/{{ remote_regular_user }}/lint-hook/*
+#     dest: /usr/share/git-core/templates/hooks/
+#     state: link
+#     force: true
+
+- name: Crear link simbólico con comando
+  command: ln -sf /home/{{ remote_regular_user }}/lint-hook/git/* /usr/share/git-core/templates/hooks
+  changed_when: false
