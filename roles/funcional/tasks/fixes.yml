@@ -23,7 +23,7 @@
   apt:
     name: nautilus
     state: latest
-    update_cache: yes
+    update_cache: true
 
 - name: Enable nautilus location
   become: true
@@ -39,21 +39,8 @@
     key: "/org/gnome/nautilus/preferences/enable-interactive-search"
     value: "true"
 
-#        PrintMsg "Global DNS Config"
-#        # More info https://andrea.corbellini.name/2020/04/28/ubuntu-global-dns/
-#        yes | sudo cp -rf ./static/dns/resolved.conf /etc/systemd/resolved.conf
-#        sudo systemctl restart systemd-resolved.service
-#        yes | sudo cp -rf ./static/dns/dns.conf /etc/NetworkManager/conf.d/dns.conf
-#        sudo systemctl reload NetworkManager.service
-#        # Add Default DNSs
-#        # https://vdemir.github.io/app/2018/06/16/Dnsmasq.html
-#        # Default DNS
-#        # yes | sudo cp -rf ./static/text/resolv-dnsmasq.conf /etc/resolvconf/resolv.conf.d/base
-#        # sudo resolvconf -u
-#
-#        # Enable to configure and config wifi without sudo
-#        sudo touch /etc/sudoers.d/network_interface
-#        #echo "$USER ALL=(ALL) /usr/bin/ip link set *[a-z0-9] down" | sudo tee -a /etc/sudoers.d/network_interface
-#        echo "#$(id -u) ALL=(ALL) /usr/bin/ip link set *[a-z0-9] down" | sudo tee -a /etc/sudoers.d/network_interface > /dev/null
-#        #echo "$USER ALL=(ALL) /usr/bin/ip link set *[a-z0-9] up" | sudo tee -a /etc/sudoers.d/network_interface
-#        echo "#$(id -u) ALL=(ALL) /usr/bin/ip link set *[a-z0-9] up" | sudo tee -a /etc/sudoers.d/network_interface > /dev/null
+- name: Configurar DNS
+  net_system:
+    name_servers:
+      - 8.8.8.8
+      - 8.8.4.4
