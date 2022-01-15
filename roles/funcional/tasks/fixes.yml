@@ -16,31 +16,17 @@
 - name: Actualizar nautilus a latest
   become: true
   apt:
-    name: indicator-sound-switcher
-
-- name: Actualizar nautilus a latest
-  become: true
-  apt:
     name: nautilus
-    state: latest
+    state: present
     update_cache: true
 
-- name: Enable nautilus location
+- name: Enable nautilus location & interactive search
   become: true
   become_user: "{{ remote_regular_user }}"
   dconf:
-    key: "/org/gnome/nautilus/preferences/always-use-location-entry"
-    value: "true"
-
-- name: Enable nautilus interactive search
-  become: true
-  become_user: "{{ remote_regular_user }}"
-  dconf:
-    key: "/org/gnome/nautilus/preferences/enable-interactive-search"
-    value: "true"
-
-- name: Configurar DNS
-  net_system:
-    name_servers:
-      - 8.8.8.8
-      - 8.8.4.4
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - {key: "/org/gnome/nautilus/preferences/always-use-location-entry", value: "true"}
+    - {key: "/org/gnome/nautilus/preferences/enable-interactive-search", value: "true"}
