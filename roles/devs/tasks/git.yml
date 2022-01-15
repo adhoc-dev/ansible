@@ -39,44 +39,26 @@
     owner: "{{ remote_regular_user }}"
 
 - name: Copiar configuraciones de sshconfig
-  copy: src=./files/sshconfig dest=/home/{{ remote_regular_user }}/.ssh/config owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=744
+  copy:
+    src: ./files/sshconfig
+    dest: /home/{{ remote_regular_user }}/.ssh/config
+    owner: {{ remote_regular_user }}
+    group: {{ remote_regular_user }}
+    mode: 744
 
 # Configurando git
-- name: Definiendo editor por defecto
+- name: Definiendo code por defecto y configuraciones globales para git
   git_config:
-    name: core.editor
-    value: code --wait
+    name: " {{ item.name }}"
+    value: " {{ item.value }}"
     scope: global
-
-- name: Configuraciones globales para git 01
-  git_config:
-    name: diff.tool
-    value: default-difftool
-    scope: global
-
-- name: Configuraciones globales para git 02
-  git_config:
-    name: difftool.default-difftool.cmd
-    value: code --wait --diff \$LOCAL \$REMOTE
-    scope: global
-
-- name: Configuraciones globales para git 03
-  git_config:
-    name: push.default
-    value: nothing
-    scope: global
-
-- name: Configuraciones globales para git 04
-  git_config:
-    name: pull.default
-    value: nothing
-    scope: global
-
-- name: Configuraciones globales para git 05
-  git_config:
-    name: pull.ff
-    value: only
-    scope: global
+  with_items:
+    - {name: core.editor, value: code --wait}
+    - {name: diff.tool, value: default-difftool}
+    - {name: difftool.default-difftool.cmd, value: code --wait --diff \$LOCAL \$REMOTE}
+    - {name: push.default, value: nothing}
+    - {name: pull.default, value: nothing}
+    - {name: pull.ff, value: only}
 
 # Global Hooks to prevent push to master
 - name: Crear carpeta para hooks
@@ -95,7 +77,12 @@
   changed_when: false
 
 - name: Copiar archivo pre-push
-  copy: src=./files/pre-push dest=/etc/git/hooks/pre-push owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=744
+  copy:
+    src: ./files/pre-push
+    dest: /etc/git/hooks/pre-push
+    owner: "{{ remote_regular_user }}"
+    group: "{{ remote_regular_user }}"
+    mode: 744
 
 - name: Configurar path para hooks
   git_config:
@@ -106,9 +93,9 @@
 # Git-AdHoc Prompt
 - name: Copiar archivo .prompt
   copy:
-    src=./files/.prompt_git
-    dest=/home/{{ remote_regular_user }}/.prompt_git
-    owner={{ remote_regular_user }}
-    group={{ remote_regular_user }}
-    mode=744
+    src: ./files/.prompt_git
+    dest: /home/{{ remote_regular_user }}/.prompt_git
+    owner: "{{ remote_regular_user }}"
+    group: "{{ remote_regular_user }}"
+    mode: 744
   changed_when: false
