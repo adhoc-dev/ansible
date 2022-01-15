@@ -1,34 +1,26 @@
 ---
-- name: Instalar pip3
+- name: Instalar pip3, PyLint, docker-compose
   become: true
   apt:
-    name: python3-pip
-
-- name: Instalar PyLint for Python 3
-  become: true
-  apt:
-    name: pylint3
+    name: {{ items }}
     state: present
+  vars:
+    items:
+    - python3-pip
+    - pylint3
+    - docker-compose
 
-- name: Instalar pylint for odoo
+- name: Instalar pylint-odoo, flake8, pep8, pre-commit
+  become: true
   pip:
-    name: pylint-odoo
+    name: {{ items }}
     extra_args: --upgrade --pre
-
-- name: Instalar flake8
-  become: true
-  pip:
-    name: flake8
-
-- name: Instalar pep8
-  become: true
-  pip:
-    name: pep8
-
-- name: Instalar pre-commit
-  become: true
-  pip:
-    name: pre-commit
+  vars:
+    items:
+      - pylint-odoo
+      - flake8
+      - pep8
+      - pre-commit
 
 # Instalar lint hooks
 - name: Limpiar carpeta
