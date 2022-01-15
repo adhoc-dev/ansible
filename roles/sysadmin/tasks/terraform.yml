@@ -20,7 +20,7 @@
 
 # This task avoids downloading Terraform every time
 - name: Verificar si ya está instalada la versión definida
-  command: "{{ terraform_path }}/terraform -version"
+  command: "{{ terraform_default_path }}/terraform -version"
   register: terraform_installed_version
   ignore_errors: yes
   changed_when: false
@@ -29,6 +29,6 @@
 - name: Instalar Terraform
   unarchive:
     src: "{{ terraform_pkg_url }}"
-    dest: "{{ terraform_path }}"
+    dest: "{{ terraform_default_path }}"
     remote_src: yes
   when: terraform_version_to_install not in ( terraform_installed_version.stdout_lines | default(['empty'], true) | first )

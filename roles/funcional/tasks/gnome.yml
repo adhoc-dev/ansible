@@ -8,39 +8,27 @@
   become: true
   become_user: "{{ remote_regular_user }}"
   dconf:
-    key: "/org/gnome/shell/overrides/attach-modal-dialogs"
-    value: "false"
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
     state: present
+  with_items:
+    - {key: "/org/gnome/shell/overrides/attach-modal-dialogs", value: "false"}
+    - {key: "/org/gnome/desktop/interface/clock-format", value: "'24h'"}
 
-- name: GNOME Preferences - Nautilus - Clock Format
+- name: Agregar repositorios para indicator-keylock e indicator-sound-switcher
   become: true
-  become_user: "{{ remote_regular_user }}"
-  dconf:
-    key: "/org/gnome/desktop/interface/clock-format"
-    value: "'24h'"
-    state: present
+  apt_repository:
+    repo: "{{ item.repo }}"
+  with_items:
+    - {repo: "ppa:indicator-keylock/stable"}
+    - {repo: ppa:yktooo/ppa}
 
-- name: Agregar repositorio para indicator-keylock
-  become: true
-  ansible.builtin.apt_repository:
-    repo: ppa:tsbarnes/indicator-keylock
-
-- name: Instalar indicator-keylock
+- name: Instalar indicator-keylock e indicator-sound-switcher
   become: true
   apt:
-    name: indicator-keylock
-  tags:
-    - indicator-keylock
-
-- name: Agregar repositorio para indicator-sound-switcher
-  become: true
-  ansible.builtin.apt_repository:
-    repo: ppa:yktooo/ppa
-
-- name: Instalar indicator-sound-switcher
-  become: true
-  apt:
-    name: indicator-sound-switcher
+    pkg:
+      - indicator-keylock
+      - indicator-sound-switcher
 
 # Install the Extensions using https://github.com/cyfrost/install-gnome-extensions/
 - name: Descargar script para instalar gnome extensions
@@ -53,4 +41,4 @@
   become: true
   become_user: "{{ remote_regular_user }}"
   script: /tmp/install-gnome-extensions.sh --overwrite --enable 1485 1301 921 6 8 750
-  changed_when: False
+  changed_when: false

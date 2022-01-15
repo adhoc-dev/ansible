@@ -13,27 +13,27 @@
   register: anydesk_repo
 
 - name: Actualizar repositorios para instalar Anydesk
+  become: true
   apt:
     update_cache: true
-  become: true
   when: anydesk_repo.changed or anydesk_repo_key.changed
 
 - name: Install AnyDesk
+  become: true
   apt:
     name: anydesk
     state: present
-  become: true
+
 
 - name: Reiniciar servicio
   become: true
-  shell: systemctl restart anydesk.service
+  systemd:
+    name: anydesk.service
+    state: restarted
 
 - name: Allow unattended access
+  become: true
   lineinfile:
     path: /etc/anydesk/system.conf
     regexp: '^ad.security.interactive_access='
     line: ad.security.interactive_access=0
-  become: true
-
-# Luego de instalar
-# echo <some_password> | sudo anydesk --set-password and anydesk --get-id

@@ -7,3 +7,8 @@
   - import_tasks: code.yml
   - import_tasks: docker.yml
   - import_tasks: python.yml
+  - import_tasks: git.yml
+  - import_tasks: rancher1.yml
+  - import_tasks: rancher2.yml
+  - import_tasks: fixes.yml
+  - import_tasks: prepare_dev.yml

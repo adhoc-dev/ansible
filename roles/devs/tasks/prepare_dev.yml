@@ -1,26 +1,84 @@
-# Workaround
-# TODO: Improve this
-sudo chmod -R g+rwx /var/lib/docker/volumes/
-sudo adduser $USER root
+# Workarounds y parches para preparar el ambiente local de desarrollo
+- name: Corregir permisos de volúmenes
+  file:
+    path: /var/lib/docker/volumes/
+    recurse: true
+    state: directory
+    mode: 'g+rwx'
 
-# Download and install the last 3 versions of odoo
-cd && mkdir -p odoo && cd odoo
-ODOO_ACTIVE_VER=("11"  "12"  "13")
-for ODOO_VER in  ${ODOO_ACTIVE_VER[*]}
-do
-    cd ~/odoo
-    sudo rm -rf $ODOO_VER
-    git clone https://github.com/ingadhoc/docker-compose-odoo.git $ODOO_VER && cd $ODOO_VER
-    sed -i "s/DOMAIN=.*/DOMAIN=odoo${ODOO_VER}.loc/" .env
-    sed -i "s/ODOO_MINOR=.*/ODOO_MINOR=${ODOO_VER}.0-enterprise/" .env
-    sed -i "s/# DBFILTER/DBFILTER/" .env
-    # Usamos localhost en lugar de loc para no tener que hacer movidas con los DNS.
-    sed -ir 's/.loc\s/.localhost /' .env
-    # Levantamos para crear los volumenes.
-    sudo docker-compose run --rm odoo ls
-    # docker-compose up -d
-    # docker stop ${ODOO_VER}_odoo_1
-    sudo ./scripts/initial_setup.sh
-    # yes |sudo ./scripts/generate_custom
-done
-docker stop portainer
+- name: Agregar user al grupo root
+  user:
+    name: "{{ remote_regular_user }}"
+    group: root
+
+# Descargar, instalar, levantar odoo 13 y 15
+- name: Crear carpeta local para Odoo
+  file:
+    path: /home/{{ remote_regular_user }}/odoo
+    state: directory
+
+- name: Clonar repositorio de Odoo v13
+  git:
+    repo: https://github.com/ingadhoc/docker-compose-odoo.git
+    dest: /home/{{ remote_regular_user }}/odoo/13
+    clone: yes
+    update: yes
+
+- name: Editar odoo_minor de .env
+  lineinfile:
+    path: /home/{{ remote_regular_user }}/odoo/13/.env
+    regexp: "^ODOO_MINOR="
+    line: "ODOO_MINOR=13.0-enterprise"
+    state: present
+
+- name: Editar domain de .env
+  lineinfile:
+    path: /home/{{ remote_regular_user }}/odoo/13/.env
+    regexp: "^DOMAIN="
+    line: "DOMAIN=13.odoo.localhost/"
+    state: present
+
+- name: Editar odoo_version de .env
+  lineinfile:
+    path: /home/{{ remote_regular_user }}/odoo/13/.env
+    regexp: "^ODOO_VERSION="
+    line: "ODOO_VERSION=13"
+    state: present
+
+- name: Levantar Odoo v13 + servicios
+  docker_compose:
+    project_src: /home/{{ remote_regular_user }}/odoo/13/
+    state: absent
+
+- name: Clonar repositorio de Odoo v15
+  git:
+    repo: git clone https://github.com/ingadhoc/docker-compose-odoo.git
+    dest: /home/{{ remote_regular_user }}/odoo/15
+    clone: yes
+    update: yes
+
+- name: Editar odoo_minor de .env
+  lineinfile:
+    path: /home/{{ remote_regular_user }}/odoo/15/.env
+    regexp: "^ODOO_MINOR="
+    line: "ODOO_MINOR=15.0-enterprise"
+    state: present
+
+- name: Editar domain de .env
+  lineinfile:
+    path: /home/{{ remote_regular_user }}/odoo/15/.env
+    regexp: "^DOMAIN="
+    line: "DOMAIN=15.odoo.localhost/"
+    state: present
+
+- name: Editar odoo_version de .env
+  lineinfile:
+    path: /home/{{ remote_regular_user }}/odoo/15/.env
+    regexp: "^ODOO_VERSION="
+    line: "ODOO_VERSION=15"
+    state: present
+
+- name: Levantar Odoo v15 + servicios
+  docker_compose:
+    project_src: /home/{{ remote_regular_user }}/odoo/15/
+    state: absent

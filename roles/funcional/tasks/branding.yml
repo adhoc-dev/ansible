@@ -1,33 +1,28 @@
-- name: Copy wallpaper
-  copy: src=files/isotipo_adhoc.png dest=/home/{{ remote_regular_user }}/.wallpaper.jpg owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=600
-
-- name: Setear GNOME wallpaper
-  become: true
-  become_user: "{{ remote_regular_user }}"
-  dconf:
-    key: "/org/gnome/desktop/background/picture-uri"
-    value: "'file:///home/{{ remote_regular_user }}/.wallpaper.jpg'"
+- name: Copiar wallpaper
+  copy:
+    src: files/isotipo_adhoc.png
+    dest: /home/{{ remote_regular_user }}/.wallpaper.jpg
+    owner: "{{ remote_regular_user }}"
+    group: "{{ remote_regular_user }}"
+    mode: 600
 
 - name: Copiar lockscreenfile
-  copy: src=files/logotipo_adhoc.png dest=/home/{{ remote_regular_user }}/.logotipo_adhoc.png owner={{ remote_regular_user }} group={{ remote_regular_user }} mode=600
+  copy:
+    src: files/logotipo_adhoc.png
+    dest: /home/{{ remote_regular_user }}/.logotipo_adhoc.png
+    owner: "{{ remote_regular_user }}"
+    group: "{{ remote_regular_user }}"
+    mode: 600
 
-- name: Setear lock screen background
+- name: Setear GNOME wallpaper, lock screen background, background colour
   become: true
   become_user: "{{ remote_regular_user }}"
   dconf:
-    key: "/org/gnome/desktop/screensaver/picture-uri"
-    value: "'file:///home/{{ remote_regular_user }}/.logotipo_adhoc.png'"
-
-- name: Centrar lock screen background
-  become: true
-  become_user: "{{ remote_regular_user }}"
-  dconf:
-    key: "/org/gnome/desktop/background/picture-options"
-    value: "'centered'"
-
-- name: Setear background colour
-  become: true
-  become_user: "{{ remote_regular_user }}"
-  dconf:
-    key: "/org/gnome/desktop/background/primary-color"
-    value: "'#d6d6d4'"
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - {key: "/org/gnome/desktop/background/picture-uri", value: "'file:///home/{{ remote_regular_user }}/.wallpaper.jpg'"}
+    - {key: "/org/gnome/desktop/screensaver/picture-uri", value: "'file:///home/{{ remote_regular_user }}/.logotipo_adhoc.png'"}
+    - {key: "/org/gnome/desktop/background/picture-options", value: "'centered'"}
+    - {key: "/org/gnome/desktop/background/primary-color", value: "'#d6d6d4'"}

@@ -3,7 +3,7 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: yes
+    update_cache: true
   vars:
     packages:
       - vim
@@ -16,21 +16,41 @@
       - yakuake
 
 - name: Configuraciones yakuake
-  copy: src=./files/yakuakerc dest=~/.config/ owner={{ ansible_user_id }} group={{ ansible_user_id }} mode=600
+  copy:
+    src: ./files/yakuakerc
+    dest: ~/.config/
+    owner: "{{ remote_regular_user }}"
+    group: "{{ remote_regular_user }}"
+    mode: '0644'
+
+
+- name: Configuraciones yakuake
+  copy:
+    src: ./files/yakuakerc
+    dest: ~/.config/
+    owner: "{{ remote_regular_user }}"
+    group: "{{ remote_regular_user }}"
+    mode: "600"
 
 - name: Directorio para configuración yakuake
   file:
     path: ~/.local/share/konsole
     state: directory
+    mode: "744"
 
 - name: Copiar archivo configuración yakuake
-  copy: src=./files/Profile_1.profile dest=~/.local/share/konsole owner={{ ansible_user_id }} group={{ ansible_user_id }} mode=600
+  copy:
+    src: ./files/Profile_1.profile
+    dest: ~/.local/share/konsole
+    owner: "{{ remote_regular_user }}"
+    group: "{{ remote_regular_user }}"
+    mode: "600"
 
 - name: Instalar dependencias y paquetes para Python
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: yes
+    update_cache: true
   vars:
     packages:
       - ipython3
