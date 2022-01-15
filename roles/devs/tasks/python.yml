@@ -2,7 +2,7 @@
 - name: Instalar pip3, PyLint, docker-compose
   become: true
   apt:
-    name: {{ items }}
+    name: "{{ items }}"
     state: present
   vars:
     items:
@@ -13,7 +13,7 @@
 - name: Instalar pylint-odoo, flake8, pep8, pre-commit
   become: true
   pip:
-    name: {{ items }}
+    name: "{{ items }}"
     extra_args: --upgrade --pre
   vars:
     items:

@@ -2,16 +2,16 @@
   copy:
     src=files/isotipo_adhoc.png
     dest=/home/{{ remote_regular_user }}/.wallpaper.jpg
-    owner={{ remote_regular_user }}
-    group={{ remote_regular_user }}
+    owner= "{{ remote_regular_user }}"
+    group= "{{ remote_regular_user }}"
     mode=600
 
 - name: Copiar lockscreenfile
   copy:
     src=files/logotipo_adhoc.png
     dest=/home/{{ remote_regular_user }}/.logotipo_adhoc.png
-    owner={{ remote_regular_user }}
-    group={{ remote_regular_user }}
+    owner= "{{ remote_regular_user }}"
+    group= "{{ remote_regular_user }}"
     mode=600
 
 - name: Setear GNOME wallpaper, lock screen background, background colour
