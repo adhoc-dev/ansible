@@ -26,7 +26,9 @@
 
 - name: Reiniciar servicio
   become: true
-  shell: systemctl restart anydesk.service
+  systemd:
+    name: anydesk.service
+    state: restarted
 
 - name: Allow unattended access
   lineinfile:
