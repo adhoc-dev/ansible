@@ -3,54 +3,15 @@
   become: true
   become_user: "{{ remote_regular_user }}"
   dconf:
-    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-1"
-    value: "['<Shift><Super>F1']"
-
-- name: Shortcuts Move 02
-  become: true
-  become_user: "{{ remote_regular_user }}"
-  dconf:
-    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-2"
-    value: "['<Shift><Super>F2']"
-
-- name: Shortcuts Move 03
-  become: true
-  become_user: "{{ remote_regular_user }}"
-  dconf:
-    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-3"
-    value: "['<Shift><Super>F3']"
-
-- name: Shortcuts Move 04
-  become: true
-  become_user: "{{ remote_regular_user }}"
-  dconf:
-    key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-4"
-    value: "['<Shift><Super>F4']"
-
-- name: Shortcuts Switch 01
-  become: true
-  become_user: "{{ remote_regular_user }}"
-  dconf:
-    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-1"
-    value: "['<Super>F1']"
-
-- name: Shortcuts Switch 02
-  become: true
-  become_user: "{{ remote_regular_user }}"
-  dconf:
-    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-2"
-    value: "['<Super>F2']"
-
-- name: Shortcuts Switch 03
-  become: true
-  become_user: "{{ remote_regular_user }}"
-  dconf:
-    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-3"
-    value: "['<Super>F3']"
-
-- name: Shortcuts Switch 04
-  become: true
-  become_user: "{{ remote_regular_user }}"
-  dconf:
-    key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-4"
-    value: "['<Super>F4']"
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - { key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-1", value: "['<Shift><Super>F1']" }
+    - { key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-2", value: "['<Shift><Super>F2']" }
+    - { key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-3", value: "['<Shift><Super>F3']" }
+    - { key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-4", value: "['<Shift><Super>F4']" }
+    - { key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-1", value: "['<Super>F1']" }
+    - { key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-2", value: "['<Super>F2']" }
+    - { key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-3", value: "['<Super>F3']" }
+    - { key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-4", value: "['<Super>F4']" }
