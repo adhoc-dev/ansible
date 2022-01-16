@@ -42,15 +42,15 @@
   copy:
     src: ./files/sshconfig
     dest: /home/{{ remote_regular_user }}/.ssh/config
-    owner: {{ remote_regular_user }}
-    group: {{ remote_regular_user }}
+    owner: "{{ remote_regular_user }}"
+    group: "{{ remote_regular_user }}"
     mode: 744
 
 # Configurando git
 - name: Definiendo code por defecto y configuraciones globales para git
   git_config:
-    name: " {{ item.name }}"
-    value: " {{ item.value }}"
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
     scope: global
   with_items:
     - {name: core.editor, value: code --wait}
