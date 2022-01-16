@@ -20,7 +20,7 @@
   apt_repository:
     repo: "{{ item.repo }}"
   with_items:
-    - {repo: tsbarnes/indicator-keylock"}
+    - {repo: ppa:tsbarnes/indicator-keylock}
     - {repo: ppa:yktooo/ppa}
 
 - name: Instalar indicator-keylock e indicator-sound-switcher
