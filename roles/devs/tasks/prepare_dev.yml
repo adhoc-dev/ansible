@@ -52,7 +52,7 @@
 
 - name: Clonar repositorio de Odoo v15
   git:
-    repo: git clone https://github.com/ingadhoc/docker-compose-odoo.git
+    repo: https://github.com/ingadhoc/docker-compose-odoo.git
     dest: /home/{{ remote_regular_user }}/odoo/15
     clone: yes
     update: yes
