@@ -26,7 +26,7 @@ git clone https://github.com/adhoc-dev/ansible.git
 cd ansible
 
 # Para ejecutar el rol correspondiente, sin función ni validación (y bue)
-function launch() {
+function launch {
     read -e -p "Qué rol tendrá quien use este notebook? ('funcional', 'devs' o 'sysadmin' ): " USER_TYPE
 
     while [[ "$USER_TYPE" != "funcional" && "$USER_TYPE" != "devs" && "$USER_TYPE" != "sysadmin" ]]; do
