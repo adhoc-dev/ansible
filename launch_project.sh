@@ -22,7 +22,7 @@ echo '[Preparar notebook] Notebook lista!'
 
 # Deploy projecto Ansible, implementación
 echo "[Projecto Ansible] Clonar repositorio"
-git clone https://github.com/adhoc-dev/ansible.git 
+git clone https://github.com/adhoc-dev/ansible.git
 cd ansible
 
 # Para ejecutar el rol correspondiente, sin función ni validación (y bue)
