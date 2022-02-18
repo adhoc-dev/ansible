@@ -9,6 +9,5 @@
   - import_tasks: terraform.yml
   - import_tasks: gcloud.yml
   - import_tasks: kubectl.yml
-#  - import_tasks: zsh.yml
-#  - import_tasks: rancher.yml
-#  - import_tasks: vagrant.yml
+  - import_tasks: zsh.yml
+  - import_tasks: vagrant.yml

@@ -1,21 +1,10 @@
 ---
 
 # Vars for terraform
-terraform_version: "latest"
-terraform_pkg_url: "https://releases.hashicorp.com/terraform/{{ terraform_version_to_install }}/terraform_{{ terraform_version_to_install }}_{{ os_type }}_{{ base_arch[ansible_architecture] | default('amd64') }}.zip"
 terraform_default_path: /usr/local/bin/
 os_type: linux
 
-
-# Vars for Rancher2
-#rancher2_version: "latest"
-#ramcher2_pkg_url: "https://releases.hashicorp.com/rancher/{{ rancher2_version }}/terraform_{{ terraform_version_to_install }}_{{ os_type }}_{{ base_arch[ansible_architecture] | default('amd64') }}.zip"
-                  https://github.com/rancher/cli/releases/tag/v2.4.14
-
-https://github.com/hashicorp/terraform/archive/refs/tags/v1.1.3.zip
-
-
-
+# Extensiones default para instalar
 vscode_extension_list_sysadmin:
   # Ansible language support
   - redhat.ansible

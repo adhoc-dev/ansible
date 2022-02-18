@@ -1,7 +1,17 @@
-# Instalar y configurar kubectl, alias, etc.
-- name: Instalar kubectl
+---
+# Instalar y configurar kubectl (alias en file ~/.bashrc para devs)
+- name: Agregar key kubernetes
+  become: true
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+- name: Agregar repositorio kubernetes
+  become: true
+  apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
+    filename: kubectl
+
+- name: Instalar kubernetes
   become: true
   apt:
     name: kubectl
-    state: present
-    update_cache: true
