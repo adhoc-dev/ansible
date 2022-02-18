@@ -44,7 +44,7 @@ En principio se puede lanzar el proyecto con un script, seleccionando el rol a i
 
 ```bash
 # Probando deploy con script
-$ sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh)"
+$ bash -c "$(curl -fsSL https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh)"
 # Revisar o editar script
 $ wget https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh
 $ sudo bash launch_project.sh
