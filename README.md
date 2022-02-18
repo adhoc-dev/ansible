@@ -1,22 +1,20 @@
 # Laboratorio Ansible
 
-Laboratorio de pruebas de ansible, con el objetivo de automatizar la preparación de laptops para puestos Funcionales, Desarrollo y SRE en Adhoc. Sobre todo un espacio experimental y de aprendizaje...
+Laboratorio de pruebas de ansible, con el objetivo de automatizar la preparación de laptops para puestos Funcionales, Desarrollo y SysAdmins en Adhoc. Para resumir, un espacio experimental y de aprendizaje.
 
-## Recursos / Inspiración
+## Recursos / Inspiración / Otros proyectos
 
 - [Documentación oficial](https://docs.ansible.com/)
 - [Learn Linux TV - Getting started with Ansible](https://www.youtube.com/playlist?list=PLT98CRl2KxKEUHie1m24-wkyHpEsa4Y70)
 - [Ansible Desktop Tutorial - Repositorio](https://github.com/LearnLinuxTV/personal_ansible_desktop_configs)
 - [Repositorio jackdbd](https://github.com/jackdbd/ansible-laptop)
 - [Repositorio nihiliad](https://github.com/nihiliad/ansible-ubuntu-laptop)
-- [Sample Ansible setup](https://docs.ansible.com/ansible/latest/user_guide/sample_setup.html)
 - [5 everyday sysadmin tasks to automate with Ansible](https://opensource.com/article/21/3/ansible-sysadmin)
 - [Ansible for dummies](https://miquelmariano.github.io/2017/01/10/ansible-for-dummies/)
 
-### Entornos
+### Entorno
 
-- PRD: Ubuntu 20.04.3 LTS 64bits
-- LAB: Vagrant 2.2.19
+- Ubuntu 20.04.3 LTS 64bits (Vagrant 2.2.19 para Test)
 
 ## To-do
 
@@ -30,22 +28,23 @@ Laboratorio de pruebas de ansible, con el objetivo de automatizar la preparació
   - [x] Install lint hook
   - [x] Enable history-search with arrows
   - [x] Install rancher1 + rancher2
-- [ ] Actualización automática (ansible-pull + cron?)
-- [ ] Preparar nuevo ambiente de desarrollo
   - [ ] Login, tokens Github, Rancher, DockerHub
 - [ ] Entorno para sysadmin
   - [x] Instalar terraform
   - [x] Instalar gcloud
   - [ ] Ver más tareas en [script](https://github.com/adhoc-dev/it-nb/blob/main/scripts/sysadmin.sh)
+- [ ] Actualización automática (ansible-pull + cron?)
+- [ ] Preparar nuevo ambiente de desarrollo
 - [ ] incluir dotfiles, keys, bash y otros archivos de configuración (~/.ssh, ~/.bashrc, ~/.bash_aliases, ~/.gitconfig, ~/.pgadmin3, ~/.pgpass, ~/odoo, /opt)
+- [ ] Optimizar y automatizar pruebas de roles y tareas
 
 ## Preparación equipo
 
-Esto fue cambiando muchas veces, desde algo más artesanal instalando con comandos, hasta esta versión más automágica:
+En principio se puede lanzar el proyecto con un script, seleccionando el rol a instalar:
 
 ```bash
 # Probando deploy con script
-$ curl https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh | sudo bash
+$ sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh)"
 # Revisar o editar script
 $ wget https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh
 $ sudo bash launch_project.sh
@@ -54,6 +53,8 @@ $ sudo bash launch_project.sh
 ### Deploy artesanal ambientes de trabajo (Funcional / Devs / SRE)
 
 ```bash
+# Dependencias
+$ apt install python3-setuptools ansible git stow
 # Clonar repositorio con playbooks, tasks, etc.
 $ git clone https://github.com/adhoc-dev/ansible && cd ansible
 # Deployar roles
