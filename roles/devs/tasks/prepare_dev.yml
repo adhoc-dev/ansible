@@ -45,11 +45,6 @@
     line: "ODOO_VERSION=13"
     state: present
 
-- name: Levantar Odoo v13 + servicios
-  docker_compose:
-    project_src: /home/{{ remote_regular_user }}/odoo/13/
-    state: absent
-
 - name: Clonar repositorio de Odoo v15
   git:
     repo: https://github.com/ingadhoc/docker-compose-odoo.git
@@ -77,8 +72,3 @@
     regexp: "^ODOO_VERSION="
     line: "ODOO_VERSION=15"
     state: present
-
-- name: Levantar Odoo v15 + servicios
-  docker_compose:
-    project_src: /home/{{ remote_regular_user }}/odoo/15/
-    state: absent

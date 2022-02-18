@@ -13,7 +13,7 @@
 
 - name: Definir visual studio code como editor de texto predeterminado
   command: "xdg-mime default code.desktop {{ text_types }}"
-  when: false
+  when: "false"
   with_items: "{{ text_types }}"
   vars:
     text_types:

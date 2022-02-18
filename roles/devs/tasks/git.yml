@@ -31,7 +31,7 @@
   become: true
   become_user: "{{ remote_regular_user }}"
   openssh_keypair:
-    path: "/home/{{ remote_regular_user }}/.ssh/id_rsa"
+    path: "/home/{{ remote_regular_user }}/.ssh/private_key{{ remote_regular_user }}"
     type: rsa
     size: 4096
     state: present
