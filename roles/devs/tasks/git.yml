@@ -9,7 +9,7 @@
 - name: Agregar repositorio de github cli
   become: true
   apt_repository:
-    repo: deb  https://cli.github.com/packages stable main
+    repo: deb https://cli.github.com/packages stable main
     filename: gh
 
 - name: Instalar github cli

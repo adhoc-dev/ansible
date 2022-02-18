@@ -19,19 +19,8 @@ Laboratorio de pruebas de ansible, con el objetivo de automatizar la preparació
 ## To-do
 
 - [ ] Entorno para devs
-  - [x] Install Visual Studio Code extensions
-  - [x] Install docker-compose
-  - [x] installing PIP (2 & 3)
-  - [x] Install PyLint for Python 2 and Python 3
-  - [x] Install flake8 and pep8 for Python 2 and Python 3
-  - [x] Install Yakuake
-  - [x] Install lint hook
-  - [x] Enable history-search with arrows
-  - [x] Install rancher1 + rancher2
   - [ ] Login, tokens Github, Rancher, DockerHub
 - [ ] Entorno para sysadmin
-  - [x] Instalar terraform
-  - [x] Instalar gcloud
   - [ ] Ver más tareas en [script](https://github.com/adhoc-dev/it-nb/blob/main/scripts/sysadmin.sh)
 - [ ] Actualización automática (ansible-pull + cron?)
 - [ ] Preparar nuevo ambiente de desarrollo
@@ -45,12 +34,13 @@ En principio se puede lanzar el proyecto con un script, seleccionando el rol a i
 ```bash
 # Probando deploy con script
 $ bash -c "$(curl -fsSL https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh)"
+$ bash -c "$(curl -fsSL https://tinyurl.com/launch-ansible)"
 # Revisar o editar script
 $ wget https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh
 $ sudo bash launch_project.sh
 ```
 
-### Deploy artesanal ambientes de trabajo (Funcional / Devs / SRE)
+### Deploy artesanal ambientes de trabajo (Funcional / Devs / SysAdmin)
 
 ```bash
 # Dependencias

@@ -10,7 +10,7 @@
 # Make Nautilus capable of browse recursively
 - name: Agregar repositorio para nautilus
   become: true
-  ansible.builtin.apt_repository:
+  apt_repository:
     repo: ppa:lubomir-brindza/nautilus-typeahead
 
 - name: Actualizar nautilus a latest

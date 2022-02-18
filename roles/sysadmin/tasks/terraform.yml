@@ -7,7 +7,7 @@
 - name: Agregar repositorio de Terraform
   become: true
   apt_repository:
-    repo: deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main
+    repo: "deb [arch=amd64] https://apt.releases.hashicorp.com stable main"
     filename: terraform
 
 - name: Instalar Terraform

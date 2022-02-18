@@ -13,7 +13,7 @@
 - name: Agregar repositorio de Vagrant
   become: true
   apt_repository:
-    repo: deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main
+    repo: "deb [arch=amd64] https://apt.releases.hashicorp.com stable main"
     filename: vagrant
 
 - name: Instalar Vagrant
