@@ -69,8 +69,6 @@ $ sudo docker login --username adhocsa --password {$DOCKER_TOKEN}
 $ gh auth login
 $ gh ssh-key add /home/$USER/.ssh/id_rsa.pub
 # Validar: https://github.com/$USER.keys
-# Configurar login a Rancher1
-$ rancher --url https://ra.adhoc.com.ar/v1 --access-key {$RANCHER_AC_KEY} --secret-key {$RANCHER_SE_KEY}
 # Configurar login a Rancher2
 $ rancher2 login https://ra.adhoc.ar/v3 --token {bearer-token}
 ```
