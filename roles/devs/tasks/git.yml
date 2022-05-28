@@ -92,6 +92,7 @@
 
 # Git-AdHoc Prompt
 - name: Copiar archivo .prompt
+  become: false
   copy:
     src: ./files/.prompt_git
     dest: /home/{{ remote_regular_user }}/.prompt_git

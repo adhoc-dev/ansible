@@ -34,15 +34,15 @@ function launch {
     done
 
     if [[ "$USER_TYPE" == "funcional" ]]; then
-        ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose
+        ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose --user=$usuario
     fi
 
     if [[ "$USER_TYPE" == "devs" ]]; then
-        ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose
+        ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose --user=$usuario
     fi
 
     if [[ "$USER_TYPE" == "sysadmin" ]]; then
-        ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose
+        ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose --user=$usuario
     fi
 }
 
