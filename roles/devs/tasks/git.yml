@@ -67,7 +67,7 @@
     state: directory
     owner: "{{ remote_regular_user }}"
     group: "{{ remote_regular_user }}"
-    mode: "744"
+    mode: "774"
     # sudo chmod +x /etc/git/hooks/*
 
 - name: Comando mágico para hooks
@@ -82,7 +82,7 @@
     dest: /etc/git/hooks/pre-push
     owner: "{{ remote_regular_user }}"
     group: "{{ remote_regular_user }}"
-    mode: 744
+    mode: 774
 
 - name: Configurar path para hooks
   git_config:
@@ -92,11 +92,11 @@
 
 # Git-AdHoc Prompt
 - name: Copiar archivo .prompt
-  become: false
+  become: true
   copy:
     src: ./files/.prompt_git
     dest: /home/{{ remote_regular_user }}/.prompt_git
     owner: "{{ remote_regular_user }}"
     group: "{{ remote_regular_user }}"
-    mode: 744
+    mode: 774
   changed_when: false
