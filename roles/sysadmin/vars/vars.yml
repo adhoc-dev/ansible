@@ -1,8 +1,5 @@
 ---
-
-# Vars for terraform
-terraform_default_path: /usr/local/bin/
-os_type: linux
+remote_regular_user: "{{ ansible_env.SUDO_USER }}"
 
 # Extensiones default para instalar
 vscode_extension_list_sysadmin:

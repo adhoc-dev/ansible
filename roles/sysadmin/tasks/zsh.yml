@@ -13,5 +13,4 @@
 
 - name: Instalar omz
   become: true
-  become_user: "{{ remote_regular_user }}"
   script: /tmp/install.sh
