@@ -1,5 +1,5 @@
 ---
-- name: Instalar pip3, PyLint, docker-compose
+- name: Instalar pip3, PyLint
   become: true
   apt:
     name: "{{ items }}"
@@ -8,7 +8,6 @@
     items:
     - python3-pip
     - pylint3
-    - docker-compose
 
 - name: Instalar pylint-odoo, flake8, pep8, pre-commit
   become: true
@@ -30,6 +29,7 @@
     force: true
 
 - name: Clonar repositorio
+  become: false
   git:
     repo: https://github.com/OCA/maintainer-quality-tools
     dest: /home/{{ remote_regular_user }}/lint-hook
