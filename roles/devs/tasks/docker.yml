@@ -37,6 +37,7 @@
       - docker-ce
       - docker-ce-cli
       - containerd.io
+      - docker-compose-plugin
 
 - name: Habilitar e iniciar docker service
   systemd:
@@ -54,17 +55,3 @@
     name: "{{ remote_regular_user }}"
     groups: docker
     append: true
-
-- name: Descargar docker-compose {{ docker_compose_version }}
-  get_url:
-    url : https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
-    dest: ~/docker-compose
-    mode: '+x'
-
-- name: Validar si docker-compose ya está instalado
-  stat: path=~/docker-compose
-  register: docker_compose
-
-- name: Mover docker-compose a /usr/local/bin/docker-compose
-  command: mv ~/docker-compose /usr/local/bin/docker-compose
-  when: docker_compose.stat.exists

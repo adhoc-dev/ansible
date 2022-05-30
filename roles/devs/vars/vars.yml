@@ -1,8 +1,7 @@
 ---
 # Usuario genérico para ejecutar algunas tareas
-remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+remote_regular_user: "{{ ansible_env.SUDO_USER }}"
 
-docker_compose_version: "1.29.2"
 rancher2_version: "v2.6.0"
 
 vscode_extension_list:
