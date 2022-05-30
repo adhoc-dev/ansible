@@ -13,11 +13,13 @@
 
 # Descargar, instalar, levantar odoo 13 y 15
 - name: Crear carpeta local para Odoo
+  become: false
   file:
     path: /home/{{ remote_regular_user }}/odoo
     state: directory
 
 - name: Clonar repositorio de Odoo v13
+  become: false
   git:
     repo: https://github.com/ingadhoc/docker-compose-odoo.git
     dest: /home/{{ remote_regular_user }}/odoo/13
@@ -35,7 +37,7 @@
   lineinfile:
     path: /home/{{ remote_regular_user }}/odoo/13/.env
     regexp: "^DOMAIN="
-    line: "DOMAIN=13.odoo.localhost/"
+    line: "DOMAIN=13.odoo.localhost"
     state: present
 
 - name: Editar odoo_version de .env
@@ -46,6 +48,7 @@
     state: present
 
 - name: Clonar repositorio de Odoo v15
+  become: false
   git:
     repo: https://github.com/ingadhoc/docker-compose-odoo.git
     dest: /home/{{ remote_regular_user }}/odoo/15
@@ -63,7 +66,7 @@
   lineinfile:
     path: /home/{{ remote_regular_user }}/odoo/15/.env
     regexp: "^DOMAIN="
-    line: "DOMAIN=15.odoo.localhost/"
+    line: "DOMAIN=15.odoo.localhost"
     state: present
 
 - name: Editar odoo_version de .env

@@ -1,8 +1,7 @@
 ---
 
 # Usuario genérico para ejecutar algunas tareas
-remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
-
+remote_regular_user: "{{ ansible_env.SUDO_USER }}"
 
 # Servidores DNS:
 dns_servers:
