@@ -22,11 +22,10 @@ echo '[PREPARAR NOTEBOOK] NOTEBOOK LISTA!'
 
 # Deploy projecto Ansible, implementación
 echo "[PROYECTO ANSIBLE] CLONAR REPOSITORIO"
+sudo touch /var/log/ansible.log
+sudo chown -R $USER:$USER /var/log/ansible.log
 git clone https://github.com/adhoc-dev/ansible.git
 cd ansible
-
-[WARNING]: log file at /var/log/ansible.log is not writeable and we cannot create it, aborting
-
 
 # Para ejecutar el rol correspondiente, sin función ni validación (y bue)
 function launch {
