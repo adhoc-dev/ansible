@@ -36,7 +36,7 @@
   file:
     path: ~/.local/share/konsole
     state: directory
-    mode: "744"
+    mode: "774"
 
 - name: Copiar archivo configuración yakuake
   copy:
