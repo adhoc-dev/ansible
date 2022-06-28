@@ -1,7 +1,5 @@
 ---
-# Fuente: https://graspingtech.com/install-docker-ansible/
-# Revisar docker-compose version in /tasks/vars.yml
-- name: Instalar dependencias de docker
+- name: Docker - Instalar dependencias
   ansible.builtin.apt:
     name:
       - apt-transport-https
@@ -11,36 +9,37 @@
       - software-properties-common
     state: present
 
-- name: Agregar docker GPG apt Key
+- name: Docker - Agregar GPG key
   ansible.builtin.apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
-- name: Agregar repositorio de docker
+- name: Docker - Agregar repositorio
   become: true
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
     state: present
 
-- name: Instalar docker
+- name: Docker - Instalar
   ansible.builtin.apt:
     name: docker.io
     update_cache: "yes"
   when: ansible_distribution_version == "20.04" and ansible_os_family == "Debian"
 
-- name: Habilitar e iniciar docker service
-  systemd:
-    name: docker
-    enabled: true
-    state: started
+- name: Docker - Instalar docker compose plugin
+  ansible.builtin.apt:
+    name: docker-compose-plugin
+    update_cache: "yes"
+  when: ansible_distribution_version == "20.04" and ansible_os_family == "Debian"
 
-- name: Crear grupo docker
-  group:
-    name: "docker"
+- name: Docker - Crear grupo docker
+  ansible.builtin.group:
+    name: docker
     state: present
 
-- name: Agregar usuario al grupo docker
-  user:
-    name: "{{ remote_regular_user }}"
-    groups: docker
-    append: true
+- name: Docker - Agregar users al grupo
+  ansible.builtin.user:
+    name: "{{ item }}"
+    groups: ["docker"]
+    append: "yes"
+  loop: "{{ docker_users|flatten(levels=1) }}"
