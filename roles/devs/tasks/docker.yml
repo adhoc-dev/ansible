@@ -2,22 +2,18 @@
 # Fuente: https://graspingtech.com/install-docker-ansible/
 # Revisar docker-compose version in /tasks/vars.yml
 - name: Instalar dependencias de docker
-  apt:
-    name: "{{ packages }}"
-    state: present
-    update_cache: yes
-  vars:
-    packages:
+  ansible.builtin.apt:
+    name:
       - apt-transport-https
       - ca-certificates
       - curl
-      - software-properties-common
       - gnupg-agent
+      - software-properties-common
+    state: present
 
 - name: Agregar docker GPG apt Key
-  become: true
-  apt_key:
-    url: "https://download.docker.com/linux/ubuntu/gpg"
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
 - name: Agregar repositorio de docker
@@ -27,17 +23,10 @@
     state: present
 
 - name: Instalar docker
-  become: true
-  apt:
-    name: "{{ packages }}"
-    state: present
-    update_cache: true
-  vars:
-    packages:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-      - docker-compose-plugin
+  ansible.builtin.apt:
+    name: docker.io
+    update_cache: "yes"
+  when: ansible_distribution_version == "20.04" and ansible_os_family == "Debian"
 
 - name: Habilitar e iniciar docker service
   systemd:
