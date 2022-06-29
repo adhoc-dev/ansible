@@ -40,5 +40,12 @@
 - name: Instalar gnome extensions
   become: true
   become_user: "{{ remote_regular_user }}"
-  script: /tmp/install-gnome-extensions.sh --overwrite --enable 1485 1301 921 6 8 750 3763
+  script: /tmp/install-gnome-extensions.sh --overwrite --enable 6 8 750 921 1485 3763 4362
   changed_when: false
+# 6/applications-menu/
+# 8/places-status-indicator/
+# 750/openweather/
+# 921/multi-monitors-add-on/
+# 1485/workspace-matrix/
+# 3763/battery-status/
+# 4362/fullscreen-avoider/
