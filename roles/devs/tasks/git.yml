@@ -1,53 +1,5 @@
 ---
-# Instalar github cli
-- name: Agregar la key de github cli
-  become: true
-  apt_key:
-    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
-    state: present
-
-- name: Agregar repositorio de github cli
-  become: true
-  apt_repository:
-    repo: deb https://cli.github.com/packages stable main
-    filename: gh
-
-- name: Instalar github cli
-  become: true
-  apt:
-    name: gh
-  changed_when: false
-
-## Crear keys y configurar ssh
-- name: Crear carpeta para ssh key
-  file:
-    path: "/home/{{ remote_regular_user }}/.ssh"
-    state: directory
-    owner: "{{ remote_regular_user }}"
-    group: "{{ remote_regular_user }}"
-    mode: "774"
-
-- name: Generar SSH key "{{ remote_regular_user }}"
-  become: true
-  become_user: "{{ remote_regular_user }}"
-  openssh_keypair:
-    path: "/home/{{ remote_regular_user }}/.ssh/private_key{{ remote_regular_user }}"
-    type: rsa
-    size: 4096
-    state: present
-    force: true
-    owner: "{{ remote_regular_user }}"
-
-- name: Copiar configuraciones de sshconfig
-  copy:
-    src: ./files/sshconfig
-    dest: /home/{{ remote_regular_user }}/.ssh/config
-    owner: "{{ remote_regular_user }}"
-    group: "{{ remote_regular_user }}"
-    mode: 744
-
-# Configurando git
-- name: Definiendo code por defecto y configuraciones globales para git
+- name: Git - Definiendo code por defecto y configuraciones globales
   git_config:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
@@ -60,23 +12,21 @@
     - {name: pull.default, value: nothing}
     - {name: pull.ff, value: only}
 
-# Global Hooks to prevent push to master
-- name: Crear carpeta para hooks
+- name: Global hooks - Crear carpeta para hooks (prevent push to master)
   file:
     path: "/etc/git/hooks"
     state: directory
     owner: "{{ remote_regular_user }}"
     group: "{{ remote_regular_user }}"
     mode: "774"
-    # sudo chmod +x /etc/git/hooks/*
 
-- name: Comando mágico para hooks
+- name: Global hooks - Comando mágico para hooks
   become: true
   become_user: "{{ remote_regular_user }}"
   command: "echo -e '#!/bin/sh\n\nif [ -x `pwd`/.git/hooks/$(basename $0) ];\nthen\n\texec `pwd`/.git/hooks/$(basename $0)\nfi' | sudo tee /etc/git/hooks/{applypatch-msg,commit-msg,fsmonitor-watchman,post-update,pre-applypatch,pre-commit,pre-rebase,pre-receive,prepare-commit-msg,update} > /dev/null"
   changed_when: false
 
-- name: Copiar archivo pre-push
+- name: Global hooks - Copiar archivo pre-push
   copy:
     src: ./files/pre-push
     dest: /etc/git/hooks/pre-push
@@ -84,14 +34,13 @@
     group: "{{ remote_regular_user }}"
     mode: 774
 
-- name: Configurar path para hooks
+- name: Global hooks - Configurar path
   git_config:
     name: core.hooksPath
     value: /etc/git/hooks/
     scope: global
 
-# Git-AdHoc Prompt
-- name: Copiar archivo .prompt
+- name: Adhoc prompt - Copiar archivo .prompt
   become: true
   copy:
     src: ./files/.prompt_git
