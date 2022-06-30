@@ -1,12 +1,12 @@
 ---
-- name: Agregar apps al panel lateral
+- name: Fixes - Agregar apps al panel lateral
   become: true
   become_user: "{{ remote_regular_user }}"
   dconf:
     key: "/org/gnome/shell/favorite-apps"
     value: "['google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'org.kde.yakuake.desktop', 'code.desktop']"
 
-- name: Copiar archivo .bashrc
+- name: Fixes - Copiar archivo .bashrc
   copy:
     src: files/.bashrc
     dest: /home/{{ remote_regular_user }}/.bashrc

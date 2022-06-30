@@ -1,24 +1,25 @@
 # Workarounds y parches para preparar el ambiente local de desarrollo
-- name: Corregir permisos de volúmenes
+- name: Local dev - Corregir permisos de volúmenes
   file:
     path: /var/lib/docker/volumes/
     recurse: true
     state: directory
     mode: 'g+rwx'
 
-- name: Agregar user al grupo root
-  user:
+- name: Local dev - Agregar user al grupo root
+  ansible.builtin.user:
     name: "{{ remote_regular_user }}"
-    group: root
+    groups: ["root"]
+    append: "yes"
 
 # Descargar, instalar, levantar odoo 13 y 15
-- name: Crear carpeta local para Odoo
+- name: Local dev - Crear carpeta local para Odoo
   become: false
   file:
     path: /home/{{ remote_regular_user }}/odoo
     state: directory
 
-- name: Clonar repositorio de Odoo v13
+- name: Local dev - Clonar repositorio de Odoo v13
   become: false
   git:
     repo: https://github.com/ingadhoc/docker-compose-odoo.git
@@ -26,28 +27,28 @@
     clone: yes
     update: yes
 
-- name: Editar odoo_minor de .env
+- name: Local dev - Editar odoo_minor de .env
   lineinfile:
     path: /home/{{ remote_regular_user }}/odoo/13/.env
     regexp: "^ODOO_MINOR="
     line: "ODOO_MINOR=13.0-enterprise"
     state: present
 
-- name: Editar domain de .env
+- name: Local dev - Editar domain de .env
   lineinfile:
     path: /home/{{ remote_regular_user }}/odoo/13/.env
     regexp: "^DOMAIN="
     line: "DOMAIN=13.odoo.localhost"
     state: present
 
-- name: Editar odoo_version de .env
+- name: Local dev - Editar odoo_version de .env
   lineinfile:
     path: /home/{{ remote_regular_user }}/odoo/13/.env
     regexp: "^ODOO_VERSION="
     line: "ODOO_VERSION=13"
     state: present
 
-- name: Clonar repositorio de Odoo v15
+- name: Local dev - Clonar repositorio de Odoo v15
   become: false
   git:
     repo: https://github.com/ingadhoc/docker-compose-odoo.git
@@ -55,21 +56,21 @@
     clone: yes
     update: yes
 
-- name: Editar odoo_minor de .env
+- name: Local dev - Editar odoo_minor de .env
   lineinfile:
     path: /home/{{ remote_regular_user }}/odoo/15/.env
     regexp: "^ODOO_MINOR="
     line: "ODOO_MINOR=15.0-enterprise"
     state: present
 
-- name: Editar domain de .env
+- name: Local dev - Editar domain de .env
   lineinfile:
     path: /home/{{ remote_regular_user }}/odoo/15/.env
     regexp: "^DOMAIN="
     line: "DOMAIN=15.odoo.localhost"
     state: present
 
-- name: Editar odoo_version de .env
+- name: Local dev - Editar odoo_version de .env
   lineinfile:
     path: /home/{{ remote_regular_user }}/odoo/15/.env
     regexp: "^ODOO_VERSION="

@@ -15,38 +15,29 @@
       - bash-completion
       - yakuake
 
-- name: Configuraciones yakuake
+- name: Yakuake - Configuraciones
   copy:
     src: ./files/yakuakerc
     dest: ~/.config/
     owner: "{{ remote_regular_user }}"
     group: "{{ remote_regular_user }}"
-    mode: '0644'
+    mode: '0666'
 
-
-- name: Configuraciones yakuake
-  copy:
-    src: ./files/yakuakerc
-    dest: ~/.config/
-    owner: "{{ remote_regular_user }}"
-    group: "{{ remote_regular_user }}"
-    mode: "600"
-
-- name: Directorio para configuración yakuake
+- name: Yakuake - Directorio para configuración
   file:
     path: ~/.local/share/konsole
     state: directory
     mode: "774"
 
-- name: Copiar archivo configuración yakuake
+- name: Yakuake - Copiar archivo configuración
   copy:
     src: ./files/Profile_1.profile
     dest: ~/.local/share/konsole
     owner: "{{ remote_regular_user }}"
     group: "{{ remote_regular_user }}"
-    mode: "600"
+    mode: "0666"
 
-- name: Instalar dependencias y paquetes para Python
+- name: Python - Instalar dependencias y paquetes
   apt:
     name: "{{ packages }}"
     state: present

@@ -1,5 +1,5 @@
 ---
-- name: Descargar e instalar Visual Studio Code
+- name: Visual Studio Code - Descargar e instalar
   apt:
     deb: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
   when: ansible_userspace_architecture == 'x86_64'
@@ -11,7 +11,7 @@
   with_items: "{{ vscode_extension_list }}"
   changed_when: False
 
-- name: Definir visual studio code como editor de texto predeterminado
+- name: Visual Studio Code - Definir como editor de texto predeterminado
   command: "xdg-mime default code.desktop {{ text_types }}"
   when: "false"
   with_items: "{{ text_types }}"
@@ -23,13 +23,13 @@
       - application/x-yaml
       - text/x-python
 
-- name: Configuraciones y personalizaciones de visual studio code
+- name: Visual Studio Code - Configuraciones y personalizaciones
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: "{{ remote_regular_user }}"
     group: "{{ remote_regular_user }}"
-    mode: 600
+    mode: 666
   with_items:
     - { src: ./files/settings.json, dest: ~/.config/Code/User/ }
     - { src: ./files/keybindings.json, dest: ~/.config/Code/User/ }

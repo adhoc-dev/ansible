@@ -1,5 +1,5 @@
 ---
-- name: Instalar pip3, PyLint
+- name: Python - Instalar pip3, PyLint
   become: true
   apt:
     name: "{{ items }}"
@@ -9,7 +9,7 @@
     - python3-pip
     - pylint3
 
-- name: Instalar pylint-odoo, flake8, pep8, pre-commit
+- name: Python - Instalar pylint-odoo, flake8, pep8, pre-commit
   become: true
   pip:
     name: "{{ items }}"
@@ -22,20 +22,20 @@
       - pre-commit
 
 # Instalar lint hooks
-- name: Limpiar carpeta
+- name: Lint hooks - Limpiar carpeta
   file:
     path: /home/{{ remote_regular_user }}/lint-hook
     state: absent
     force: true
 
-- name: Clonar repositorio
+- name: Lint hooks - Clonar repositorio
   become: false
   git:
     repo: https://github.com/OCA/maintainer-quality-tools
     dest: /home/{{ remote_regular_user }}/lint-hook
     version: master
 
-- name: Instalar requirements
+- name: Lint hooks - Instalar requirements
   pip:
     chdir: /home/{{ remote_regular_user }}/lint-hook
     requirements: requirements.txt
@@ -48,6 +48,6 @@
 #     state: link
 #     force: true
 
-- name: Crear link simbólico con comando
+- name: Lint hooks - Crear link simbólico con comando
   command: ln -sf /home/{{ remote_regular_user }}/lint-hook/git/* /usr/share/git-core/templates/hooks
   changed_when: false
