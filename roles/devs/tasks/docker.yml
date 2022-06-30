@@ -24,13 +24,13 @@
   ansible.builtin.apt:
     name: docker.io
     update_cache: "yes"
-  when: ansible_distribution_version == "20.04" and ansible_os_family == "Debian"
+    state: present
 
 - name: Docker - Instalar docker compose plugin
   ansible.builtin.apt:
     name: docker-compose-plugin
     update_cache: "yes"
-  when: ansible_distribution_version == "20.04" and ansible_os_family == "Debian"
+    state: present
 
 - name: Docker - Crear grupo docker
   ansible.builtin.group:
@@ -39,7 +39,6 @@
 
 - name: Docker - Agregar users al grupo
   ansible.builtin.user:
-    name: "{{ item }}"
+    name: "{{ remote_regular_user }}"
     groups: ["docker"]
     append: "yes"
-  loop: "{{ docker_users|flatten(levels=1) }}"
