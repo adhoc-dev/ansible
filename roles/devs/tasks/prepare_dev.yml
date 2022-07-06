@@ -13,11 +13,22 @@
     append: "yes"
 
 # Descargar, instalar, levantar odoo 13 y 15
+- name: Ansible - Variable para verificar si está la carpeta odoo
+  stat:
+    path: /home/{{ remote_regular_user }}/odoo
+    register: odoo_folder
+
+- name: Local dev - ¿Existe la carpeta odoo?
+  debug:
+    msg: "La carpeta Odoo ya había sido clonada / creada"
+    when: odoo_folder.stat.exists
+
 - name: Local dev - Crear carpeta local para Odoo
   become: false
   file:
     path: /home/{{ remote_regular_user }}/odoo
     state: directory
+    when: my_folder.stat.exists == false
 
 - name: Local dev - Clonar repositorio de Odoo v13
   become: false
