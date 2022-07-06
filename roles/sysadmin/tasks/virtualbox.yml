@@ -1,0 +1,12 @@
+---
+- name: Virtualbox - Instalar
+  become: true
+  apt:
+    name: virtualbox
+    state: present
+
+- name: Virtualbox - Instalar Extension Pack
+  become: true
+  apt:
+    name: virtualbox-ext-pack
+    state: present
