@@ -1,16 +1,17 @@
 ---
 # Para instalar zsh y omz. La idea es usar stow y dotfiles para el resto de la configuración, theme, plugins, etc.
-- name: Instalar zsh
+- name: zsh - Instalar
   become: true
   apt:
     name: zsh
+    state: present
 
-- name: Descargar script omz
+- name: omz - Descargar script
   get_url:
     url: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     dest: /tmp/install.sh
     mode: '+x'
 
-- name: Instalar omz
+- name: omz - Instalar
   become: true
   script: /tmp/install.sh
