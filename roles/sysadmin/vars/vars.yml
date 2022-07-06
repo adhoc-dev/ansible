@@ -13,9 +13,9 @@ vscode_extension_list_sysadmin:
   - ipedrazas.kubernetes-snippets
   # Provides path completion for visual studio code.
   - ionutvmi.path-autocomplete
-  # Highlight CSV and TSV files, Run SQL-like queries
-  - mechatroner.rainbow-csv
   # Open any folder or repository inside a Docker container and take advantage of Visual Studio Code's full feature set.
-  - ms-vscode-remote.remote-containers
+  - ms-vscode-remote.vscode-remote-extensionpack
   # YAML Language Support by Red Hat, with built-in Kubernetes syntax support
   - redhat.vscode-yaml
+  # Makes it easy to create, manage, and debug containerized applications.
+  - ms-azuretools.vscode-docker
