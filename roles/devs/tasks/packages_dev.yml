@@ -37,7 +37,7 @@
     group: "{{ remote_regular_user }}"
     mode: "0666"
 
-- name: Python - Instalar dependencias y paquetes
+- name: Python3 - Instalar dependencias y paquetes
   apt:
     name: "{{ packages }}"
     state: present
@@ -46,7 +46,6 @@
     packages:
       - ipython3
       - python3-setuptools
-      - python-setuptools
-      - python-pip-whl
+      - python3-pip-whl
       - python3-pip
       - python3

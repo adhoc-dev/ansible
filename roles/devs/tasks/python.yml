@@ -7,7 +7,7 @@
   vars:
     items:
     - python3-pip
-    - pylint3
+    - pylint
 
 - name: Python - Instalar pylint-odoo, flake8, pep8, pre-commit
   become: true
