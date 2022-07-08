@@ -17,7 +17,7 @@
 
 - name: Validar que locale existe
   locale_gen:
-    name: es_AR.UTF-8
+    name: es_ES.UTF-8
     state: present
 
 - name: Configurar layouts de teclado
@@ -25,5 +25,5 @@
   become_user: "{{ remote_regular_user }}"
   dconf:
     key: "/org/gnome/desktop/input-sources/sources"
-    value: "[('xkb', 'latam'), ('xkb', 'us')]"
+    value: "[('xkb', 'es'), ('xkb', 'us')]"
     state: present
