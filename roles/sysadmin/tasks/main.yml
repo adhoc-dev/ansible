@@ -1,8 +1,5 @@
 ---
-# Varios para sysadmin, sre, devops (si se vuelve inmanejable, separamos en distintas tareas)
-# To-do: https://github.com/adhoc-dev/it-nb/blob/main/scripts/sysadmin.sh
-
-- include_vars: ./vars/vars.yml
+- include_vars: ./roles/vars.yml
   tags: sysadmin
 
 - block:
