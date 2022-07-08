@@ -28,6 +28,12 @@
   roles:
     - sysadmin
 
+- hosts: laptop
+  tags: deploy
+  become: true
+  roles:
+    - deploy
+
 # completar deploy y limpiar caché
 - hosts: laptop
   become: true
