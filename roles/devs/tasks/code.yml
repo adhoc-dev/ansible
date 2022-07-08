@@ -8,7 +8,7 @@
   become: true
   become_user: "{{ remote_regular_user }}"
   command: "code --install-extension {{ item }}"
-  with_items: "{{ vscode_extension_list }}"
+  with_items: "{{ vscode_extension_list_devs }}"
   changed_when: False
 
 - name: Visual Studio Code - Definir como editor de texto predeterminado
