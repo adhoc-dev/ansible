@@ -15,21 +15,6 @@
     - {key: "/org/gnome/shell/overrides/attach-modal-dialogs", value: "false"}
     - {key: "/org/gnome/desktop/interface/clock-format", value: "'24h'"}
 
-- name: Agregar repositorios para indicator-keylock e indicator-sound-switcher
-  become: true
-  apt_repository:
-    repo: "{{ item.repo }}"
-  with_items:
-    - {repo: ppa:tsbarnes/indicator-keylock}
-    - {repo: ppa:yktooo/ppa}
-
-- name: Instalar indicator-keylock e indicator-sound-switcher
-  become: true
-  apt:
-    pkg:
-      - indicator-keylock
-      - indicator-sound-switcher
-
 # Install the Extensions using https://github.com/cyfrost/install-gnome-extensions/
 - name: Descargar script para instalar gnome extensions
   get_url:
@@ -40,11 +25,13 @@
 - name: Instalar gnome extensions
   become: true
   become_user: "{{ remote_regular_user }}"
-  script: /tmp/install-gnome-extensions.sh --overwrite --enable 6 8 750 921 1485 3763 4362
+  script: /tmp/install-gnome-extensions.sh --overwrite --enable 6 8 36 750 906 921 1485 3763 4362
   changed_when: false
 # 6/applications-menu/
 # 8/places-status-indicator/
+# 36/lock-keys/
 # 750/openweather/
+# 906/sound-output-device-chooser/
 # 921/multi-monitors-add-on/
 # 1485/workspace-matrix/
 # 3763/battery-status/
