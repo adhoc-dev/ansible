@@ -1,5 +1,5 @@
 ---
-- name: Instalar paquetes de sistema, drivers
+- name: Base - Instalar paquetes de sistema, drivers
   apt:
     name: "{{ packages }}"
     state: present
@@ -21,7 +21,7 @@
       - locate
       - libxshmfence1
 
-- name: Utilidades de compresión
+- name: Base - Utilidades de compresión
   apt:
     name: "{{ packages }}"
     state: present
@@ -36,7 +36,7 @@
       - p7zip-full
       - p7zip-rar
 
-- name: Instalar otras aplicaciones
+- name: Base - Instalar otras aplicaciones
   apt:
     name: "{{ packages }}"
     state: present
@@ -49,7 +49,7 @@
       - vlc
       - ffmpeg
 
-- name: Análisis de Hardware, información del sistema
+- name: Base - Análisis de Hardware, información del sistema
   apt:
     name: "{{ packages }}"
     state: present
@@ -64,7 +64,7 @@
       - hardinfo
       - stacer
 
-- name: Improve battery performance
+- name: Base - Performance y  rendimiento de batería
   apt:
     name: "{{ packages }}"
     state: present
@@ -76,7 +76,7 @@
       - acpi-call-dkms
       - powertop
 
-- name: Paquetes varios de entorno gráfico, captura de pantalla, etc.
+- name: Base - Paquetes varios de entorno gráfico, captura de pantalla, etc.
   apt:
     name: "{{ packages }}"
     state: present
@@ -86,5 +86,18 @@
       - indicator-multiload
       - alacarte
       - fonts-firacode
-      - gnome-tweak-tool
       - flameshot
+
+- name: Instalar gnome tweaks (20.04)
+  apt:
+    name: gnome-tweak-tool
+    state: present
+    update_cache: true
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'
+
+- name: Instalar gnome tweaks (22.04)
+  apt:
+    name: gnome-tweaks
+    state: present
+    update_cache: true
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '22.04'
