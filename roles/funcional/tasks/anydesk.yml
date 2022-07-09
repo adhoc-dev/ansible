@@ -9,7 +9,7 @@
 - name: Anydesk - Agregar repositorio
   become: true
   apt_repository:
-    repo: "deb [arch=$(dpkg --print-architecture)] http://deb.anydesk.com/ all main"
+    repo: "deb [arch=amd64] http://deb.anydesk.com/ all main"
   register: anydesk_repo
 
 - name: Anydesk - Actualizar repositorios
