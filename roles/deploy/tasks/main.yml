@@ -7,3 +7,4 @@
   - import_tasks: ../roles/devs/tasks/rancher2.yml
   - import_tasks: ../roles/sysadmin/tasks/gcloud.yml
   - import_tasks: ../roles/sysadmin/tasks/terraform.yml
+  - import_tasks: project.yml
