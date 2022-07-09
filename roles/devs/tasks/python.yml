@@ -1,13 +1,33 @@
 ---
-- name: Python - Instalar pip3, PyLint
-  become: true
+- name: Python3 - Instalar dependencias y paquetes (20.04)
   apt:
-    name: "{{ items }}"
+    name: "{{ packages }}"
     state: present
+    update_cache: true
   vars:
-    items:
-    - python3-pip
-    - pylint
+    packages:
+      - ipython3
+      - python3-setuptools
+      - python-pip-whl
+      - python3-pip
+      - pylint
+      - python3
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'
+
+- name: Python3 - Instalar dependencias y paquetes (20.04)
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: true
+  vars:
+    packages:
+      - ipython3
+      - python3-setuptools
+      - python3-pip-whl
+      - python3-pip
+      - pylint
+      - python3
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '22.04'
 
 - name: Python - Instalar pylint-odoo, flake8, pep8, pre-commit
   become: true

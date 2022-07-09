@@ -36,16 +36,3 @@
     owner: "{{ remote_regular_user }}"
     group: "{{ remote_regular_user }}"
     mode: "0666"
-
-- name: Python3 - Instalar dependencias y paquetes
-  apt:
-    name: "{{ packages }}"
-    state: present
-    update_cache: true
-  vars:
-    packages:
-      - ipython3
-      - python3-setuptools
-      - python3-pip-whl
-      - python3-pip
-      - python3
