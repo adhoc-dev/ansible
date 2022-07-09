@@ -3,9 +3,10 @@
 Laboratorio de pruebas de ansible, con el objetivo de automatizar la preparación de laptops para puestos Funcionales, Desarrollo y SysAdmins en Adhoc. Para resumir, un espacio experimental y de aprendizaje para preparar "notebooks as a service".  
 Para información interna más detallada, procedimiento, pendientes, etc., revisar [este documento](https://docs.google.com/document/d/1iDylKWfjRL9SO_GR_1j7HjQhFixYsFz9Vv3Mi0WstPQ).
 
-## Entorno
+## Entornos
 
-- Ubuntu 20.04.3 LTS 64bits (virtualbox)
+- Branch > Master > Ubuntu 20.04.3 LTS 64bits
+- Branch > 22.04 > Ubuntu 22.04 LTS 64bits
 
 ## Preparación equipo
 
