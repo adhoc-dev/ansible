@@ -3,7 +3,6 @@
   apt:
     name: python3-psutil
     state: present
-    update_cache: true
 
 - name: GNOME Preferences - Shell - Attach Modal Dialogues
   become_user: "{{ remote_regular_user }}"

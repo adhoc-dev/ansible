@@ -3,7 +3,6 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: true
   vars:
     packages:
       - htop
@@ -25,7 +24,6 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: true
   vars:
     packages:
       - zip
@@ -40,7 +38,6 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: true
   vars:
     packages:
       - poedit
@@ -53,7 +50,6 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: true
   vars:
     packages:
       - htop
@@ -68,7 +64,6 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: true
   vars:
     packages:
       - tlp
@@ -80,7 +75,6 @@
   apt:
     name: "{{ packages }}"
     state: present
-    update_cache: true
   vars:
     packages:
       - indicator-multiload
@@ -92,12 +86,10 @@
   apt:
     name: gnome-tweak-tool
     state: present
-    update_cache: true
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'
 
 - name: Instalar gnome tweaks (22.04)
   apt:
     name: gnome-tweaks
     state: present
-    update_cache: true
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '22.04'

@@ -13,6 +13,7 @@
     repo: ppa:lubomir-brindza/nautilus-typeahead
 
 - name: Actualizar nautilus a latest
+  become: true
   apt:
     name: nautilus
     state: present
