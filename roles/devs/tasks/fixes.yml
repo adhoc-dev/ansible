@@ -1,6 +1,5 @@
 ---
 - name: Fixes - Agregar apps al panel lateral
-  become: true
   become_user: "{{ remote_regular_user }}"
   dconf:
     key: "/org/gnome/shell/favorite-apps"

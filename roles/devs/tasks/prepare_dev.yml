@@ -14,13 +14,13 @@
 
 # Descargar, instalar, levantar odoo 13 y 15
 - name: Local dev - Crear carpeta local para Odoo
-  become: false
+  become_user: "{{ remote_regular_user }}"
   file:
     path: /home/{{ remote_regular_user }}/odoo
     state: directory
 
 - name: Local dev - Clonar repositorio de Odoo v13
-  become: false
+  become_user: "{{ remote_regular_user }}"
   git:
     repo: https://github.com/ingadhoc/docker-compose-odoo.git
     dest: /home/{{ remote_regular_user }}/odoo/13
@@ -49,7 +49,7 @@
     state: present
 
 - name: Local dev - Clonar repositorio de Odoo v15
-  become: false
+  become_user: "{{ remote_regular_user }}"
   git:
     repo: https://github.com/ingadhoc/docker-compose-odoo.git
     dest: /home/{{ remote_regular_user }}/odoo/15

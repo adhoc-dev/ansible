@@ -5,13 +5,13 @@
   when: ansible_userspace_architecture == 'x86_64'
 
 - name: Instalar muchas extensiones predefinidas
-  become: true
   become_user: "{{ remote_regular_user }}"
   command: "code --install-extension {{ item }}"
   with_items: "{{ vscode_extension_list_devs }}"
   changed_when: False
 
 - name: Visual Studio Code - Definir como editor de texto predeterminado
+  become: true
   command: "xdg-mime default code.desktop {{ text_types }}"
   when: "false"
   with_items: "{{ text_types }}"

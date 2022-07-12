@@ -15,6 +15,7 @@
     state: present
 
 - name: Docker - Agregar repositorio
+  become: true
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
     state: present

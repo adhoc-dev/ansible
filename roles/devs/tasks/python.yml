@@ -49,7 +49,7 @@
     force: true
 
 - name: Lint hooks - Clonar repositorio
-  become: false
+  become_user: "{{ remote_regular_user }}"
   git:
     repo: https://github.com/OCA/maintainer-quality-tools
     dest: /home/{{ remote_regular_user }}/lint-hook
