@@ -41,7 +41,6 @@
     scope: global
 
 - name: Adhoc prompt - Copiar archivo .prompt
-  become: true
   copy:
     src: ./files/.prompt_git
     dest: /home/{{ remote_regular_user }}/.prompt_git

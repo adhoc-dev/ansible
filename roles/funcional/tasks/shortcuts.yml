@@ -1,6 +1,5 @@
 # Shortcuts
 - name: Shortcuts Move 01
-  become: true
   become_user: "{{ remote_regular_user }}"
   dconf:
     key: "{{ item.key }}"

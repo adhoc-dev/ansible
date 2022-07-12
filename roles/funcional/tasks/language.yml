@@ -21,7 +21,6 @@
     state: present
 
 - name: Configurar layouts de teclado
-  become: true
   become_user: "{{ remote_regular_user }}"
   dconf:
     key: "/org/gnome/desktop/input-sources/sources"

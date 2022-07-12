@@ -1,7 +1,6 @@
 ---
 # Add Fav Apps
 - name: Agregar apps al panel lateral
-  become: true
   become_user: "{{ remote_regular_user }}"
   dconf:
     key: "/org/gnome/shell/favorite-apps"
@@ -14,14 +13,12 @@
     repo: ppa:lubomir-brindza/nautilus-typeahead
 
 - name: Actualizar nautilus a latest
-  become: true
   apt:
     name: nautilus
     state: present
     update_cache: true
 
 - name: Enable nautilus location & interactive search
-  become: true
   become_user: "{{ remote_regular_user }}"
   dconf:
     key: "{{ item.key }}"

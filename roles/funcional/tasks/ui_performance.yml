@@ -1,5 +1,4 @@
 - name: Mejorar performance de UI - Show seconds
-  become: true
   become_user: "{{ remote_regular_user }}"
   dconf:
     key: "{{ item.key }}"

@@ -1,11 +1,11 @@
 ---
 - name: Instalar dependencias para configurar Gnome
-  become: true
   apt:
-    pkg: ['python3-psutil']
+    name: python3-psutil
+    state: present
+    update_cache: true
 
 - name: GNOME Preferences - Shell - Attach Modal Dialogues
-  become: true
   become_user: "{{ remote_regular_user }}"
   dconf:
     key: "{{ item.key }}"
@@ -23,7 +23,6 @@
     mode: '+x'
 
 - name: Instalar gnome extensions
-  become: true
   become_user: "{{ remote_regular_user }}"
   script: /tmp/install-gnome-extensions.sh --overwrite --enable 6 8 36 750 906 921 1485 3763 4362
   changed_when: false
