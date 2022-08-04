@@ -15,6 +15,7 @@
       - yakuake
 
 - name: Yakuake - Configuraciones
+  become_user: "{{ remote_regular_user }}"
   copy:
     src: ./files/yakuakerc
     dest: ~/.config/
