@@ -23,7 +23,7 @@
 
 - name: Instalar gnome extensions
   become_user: "{{ remote_regular_user }}"
-  script: /tmp/install-gnome-extensions.sh --overwrite --enable 6 8 36 750 906 921 1485 3763 4362
+  script: /tmp/install-gnome-extensions.sh --overwrite --enable 906 921 1485
   changed_when: false
 # 6/applications-menu/
 # 8/places-status-indicator/
