@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Script para preparar notebooks. Primero hace unas magias y luego aplica el rol de Ansible que corresponda
+# Script para preparar notebooks. Instala dependencias, clona el repositorio del proyecto y luego aplica el rol base "Funcional".
 
 # Actualizar sistema
 echo "[PREPARAR NOTEBOOK] ACTUALIZAR AMBIENTE DE TRABAJO"
@@ -27,25 +27,22 @@ sudo chown -R $USER:$USER /var/log/ansible.log
 git clone https://github.com/adhoc-dev/ansible.git
 cd ansible
 
-# Para ejecutar el rol correspondiente, sin función ni validación (y bue)
+# Para ejecutar el rol base
 function launch {
-    read -e -p "PARA QUÉ ROL SE USARÁ ESTA NOTEBOOK? ('funcional', 'devs' o 'sysadmin' ): " USER_TYPE
+    read -e -p "COMENZAR PREPARACIÓN DEL ROL BASE? ( 's', 'n' ): " LAUNCH_OPTION
 
-    while [[ "$USER_TYPE" != "funcional" && "$USER_TYPE" != "devs" && "$USER_TYPE" != "sysadmin" ]]; do
-        read -e -p "Ingresar el rol correctamente ('funcional', 'devs' o 'sysadmin'): " USER_TYPE
+    while [[ "$LAUNCH_OPTION" != "s" && "$LAUNCH_OPTION" != "n"; do
+        read -e -p "Por favor seleccionar una opción correcta ( 's', 'n' ): " LAUNCH_OPTION
     done
 
-    if [[ "$USER_TYPE" == "funcional" ]]; then
-        ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose
+    if [[ "$LAUNCH_OPTION" == "si" ]]; then
+        ansible-playbook --tags "funcional" local.yml -K --verbose
     fi
 
-    if [[ "$USER_TYPE" == "devs" ]]; then
-        ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose
+    if [[ "$LAUNCH_OPTION" == "no" ]]; then
+        read -e -p "Gracias por lanzar el proyecto, ver README.md para más información."
     fi
 
-    if [[ "$USER_TYPE" == "sysadmin" ]]; then
-        ansible-playbook --tags "$USER_TYPE" local.yml -K --verbose
-    fi
 }
 
 launch
