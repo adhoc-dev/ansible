@@ -7,9 +7,11 @@
       - curl
       - gnupg-agent
       - software-properties-common
+      - lsb-release
     state: present
 
 - name: Docker - Agregar GPG key
+  become: true
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
