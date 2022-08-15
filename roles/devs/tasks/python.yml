@@ -13,7 +13,7 @@
       - python3
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'
 
-- name: Python3 - Instalar dependencias y paquetes (20.04)
+- name: Python3 - Instalar dependencias y paquetes (22.04)
   apt:
     name: "{{ packages }}"
     state: present
