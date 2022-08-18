@@ -31,7 +31,7 @@ cd ansible
 function launch {
     read -e -p "COMENZAR PREPARACIÓN DEL ROL BASE? ( 'si', 'no' ): " LAUNCH_OPTION
 
-    while [[ "$LAUNCH_OPTION" != "s" && "$LAUNCH_OPTION" != "n" ]]; do
+    while [[ "$LAUNCH_OPTION" != "si" && "$LAUNCH_OPTION" != "no" ]]; do
         read -e -p "Por favor seleccionar una opción correcta ( 's', 'n' ): " LAUNCH_OPTION
     done
 
