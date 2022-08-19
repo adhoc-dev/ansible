@@ -9,10 +9,9 @@
     mode: "774"
 
 - name: SSH - Generar key "{{ remote_regular_user }}"
-  become: true
   become_user: "{{ remote_regular_user }}"
   openssh_keypair:
-    path: "/home/{{ remote_regular_user }}/.ssh/private_key{{ remote_regular_user }}"
+    path: "/home/{{ remote_regular_user }}/.ssh/private_key_{{ remote_regular_user }}"
     type: rsa
     size: 4096
     state: present
