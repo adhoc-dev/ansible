@@ -10,44 +10,66 @@
       - lsb-release
     state: present
 
-- name: Docker - Agregar GPG key
-  become: true
-  apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    state: present
+- name: Docker - GPG keyring y repo
+  block:
+    - name: Docker - Chequear si existe carpeta keyrings
+      stat:
+        path: /etc/apt/keyrings
+      register: docker_key_folder
 
-- name: Docker - Agregar repositorio
-  become: true
-  apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-    state: present
+    - name: Docker - Mensaje de confirmación carpeta keyrings
+      debug:
+        msg: "La carpeta keyrings ya existe"
+      when: docker_key_folder.stat.exists
 
-- name: Docker - Instalar
+    - name: Docker - Crear carpeta keyrings
+      file:
+        owner: "{{ remote_regular_user }}"
+        path: /etc/apt/keyrings
+        state: directory
+      when: docker_key_folder.stat.exists == false
+
+    - name: Docker - Descargar GPG key
+      get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.gpg
+      become: true
+
+    - name: Docker - Instalar GPG key
+      apt_key:
+        file: /etc/apt/keyrings/docker.gpg
+        state: present
+      become: true
+
+    - name: Docker - Agregar repositorio
+      apt_repository:
+        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+        state: present
+
+- name: Docker - Instalar docker y docker compose plugin
   apt:
-    name: docker.io
+    name:
+      - docker.io
+      - docker-compose-plugin
     update_cache: "yes"
     state: present
 
-- name: Docker - Instalar docker compose plugin
-  apt:
-    name: docker-compose-plugin
-    update_cache: "yes"
-    state: present
+- name: Docker - Ejecutar comandos como root
+  block:
+    - name: Docker - Crear grupo docker
+      group:
+        name: docker
+        state: present
 
-- name: Docker - Crear grupo docker
-  group:
-    name: docker
-    state: present
-
-- name: Docker - Agregar users al grupo
-  user:
-    name: "{{ remote_regular_user }}"
-    groups: ["docker"]
-    append: "yes"
+    - name: Docker - Agregar users al grupo
+      user:
+        name: "{{ remote_regular_user }}"
+        groups: ["docker"]
+        append: "yes"
 
 - name: Docker - Instalar docker-compose
   get_url:
-    url: https://github.com/docker/compose/releases/download/{{ docker-compose_version }}/docker-compose-linux-x86_64
+    url: https://github.com/docker/compose/releases/download/v2.7.0/docker-compose-linux-x86_64
     dest: /usr/local/bin/docker-compose
     owner: "{{ remote_regular_user }}"
     group: "{{ remote_regular_user }}"
