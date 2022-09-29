@@ -76,6 +76,27 @@ $ vagrant init generic/ubuntu2204
 $ vagrant up
 $ vagrant ssh
 $ logout
+$ vagrant box list     
+generic/ubuntu2004 (virtualbox, 4.1.4)
+generic/ubuntu2204 (virtualbox, 4.1.10)
+
+$ vagrant snapshot save [vm-name] NAME
+$ vagrant snapshot save default ubuntu2204 
+==> default: Snapshotting the machine as 'ubuntu2204'...
+$ vagrant snapshot restore [vm-name] NAME
+$ vagrant snapshot restore default vm_2204
+
+$ vagrant snapshot list
+==> default: 
+ubuntu2204
+$ vagrant global-status
+id       name    provider   state  directory
+-----------------------------------------------------------------------
+b3fafcb  default virtualbox saved  /home/dib/repositorios/ansible
+
+$ vagrant snapshot push
+$ vagrant snapshot pop
+
 $ vagrant destroy
 $ vagrant box list
 $ vagrant box remove hashicorp/bionic64
