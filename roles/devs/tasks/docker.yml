@@ -10,29 +10,20 @@
       - lsb-release
     state: present
 
-- name: Docker - GPG keyring y repo
-  block:
-    - name: Docker - Descargar GPG key
-      get_url:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        dest: /etc/apt/trusted.gpg.d/docker.gpg
-      become: true
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
 
-    - name: Docker - Instalar GPG key
-      apt_key:
-        file: /etc/apt/trusted.gpg.d/docker.gpg
-        state: present
-      become: true
-
-    - name: Docker - Agregar repositorio
-      apt_repository:
-        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable"
-        state: present
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu focal stable
+    state: present
 
 - name: Docker - Instalar docker y docker compose plugin
   apt:
     name:
-      - docker.io
+      - docker-ce
       - docker-compose-plugin
     update_cache: "yes"
     state: present
