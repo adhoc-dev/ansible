@@ -11,17 +11,8 @@
   changed_when: False
 
 - name: Visual Studio Code - Definir como editor de texto predeterminado
-  become: true
-  command: "xdg-mime default code.desktop {{ text_types }}"
-  when: "false"
-  with_items: "{{ text_types }}"
-  vars:
-    text_types:
-      - text
-      - text/plain
-      - text/markdown
-      - application/x-yaml
-      - text/x-python
+  become_user: "{{ remote_regular_user }}"
+  command: "xdg-mime default code.desktop application/x-shellscript text/plain text/markdown application/x-yaml text/x-python"
 
 - name: Visual Studio Code - Configuraciones y personalizaciones
   copy:
