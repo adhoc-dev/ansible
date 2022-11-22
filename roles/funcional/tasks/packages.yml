@@ -59,6 +59,7 @@
       - mtr
       - hardinfo
       - stacer
+      - screenfetch
 
 - name: Base - Performance y  rendimiento de batería
   apt:
