@@ -10,14 +10,16 @@
       - lsb-release
     state: present
 
-- name: Add Docker GPG apt Key
+- name: Docker - Agregar GPG
+  become: true
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
-- name: Add Docker Repository
+- name: Docker - Agregar repositorio
+  become: true
   apt_repository:
-    repo: deb https://download.docker.com/linux/ubuntu focal stable
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
     state: present
 
 - name: Docker - Instalar docker y docker compose plugin
