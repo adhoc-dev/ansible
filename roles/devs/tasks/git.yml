@@ -26,6 +26,7 @@
   changed_when: false
 
 - name: Global hooks - Copiar archivo pre-push
+  become_user: "{{ remote_regular_user }}"
   copy:
     src: ./files/pre-push
     dest: /etc/git/hooks/pre-push
@@ -40,6 +41,7 @@
     scope: global
 
 - name: Adhoc prompt - Copiar archivo .prompt
+  become_user: "{{ remote_regular_user }}"
   copy:
     src: ./files/.prompt_git
     dest: /home/{{ remote_regular_user }}/.prompt_git
