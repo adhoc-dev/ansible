@@ -32,7 +32,7 @@
     dest: /etc/git/hooks/pre-push
     owner: "{{ remote_regular_user }}"
     group: "{{ remote_regular_user }}"
-    mode: '0777'
+    mode: u=rw,g=rw,o=r
 
 - name: Global hooks - Configurar path
   git_config:
@@ -46,5 +46,5 @@
     dest: /home/{{ remote_regular_user }}/.prompt_git
     owner: "{{ remote_regular_user }}"
     group: "{{ remote_regular_user }}"
-    mode: '0777'
+    mode: u=rw,g=rw,o=r
   changed_when: false
