@@ -11,13 +11,11 @@
     state: present
 
 - name: Docker - Agregar GPG
-  become: true
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
 - name: Docker - Agregar repositorio
-  become: true
   apt_repository:
     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
     state: present

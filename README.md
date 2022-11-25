@@ -3,11 +3,6 @@
 Laboratorio de pruebas de ansible, con el objetivo de automatizar la preparación de laptops para puestos Funcionales, Desarrollo y SysAdmins en Adhoc. Para resumir, un espacio experimental y de aprendizaje para preparar "notebooks as a service".  
 Para información interna más detallada, procedimiento, pendientes, etc., revisar [este documento](https://docs.google.com/document/d/1iDylKWfjRL9SO_GR_1j7HjQhFixYsFz9Vv3Mi0WstPQ).
 
-## Entornos
-
-- Branch > Master > Ubuntu 20.04 LTS 64bits
-- Branch > 22.04 > Ubuntu 22.04 LTS 64bits
-
 ### Roles
 
 - funcional > Operaciones, Mesa de Ayuda, Comercial, Administración (aunque usan Windows),
@@ -21,6 +16,7 @@ En principio se puede lanzar el proyecto con un script (que además instala depe
 
 ```bash
 # Probando deploy con script
+$ sudo apt install curl
 $ bash -c "$(curl -fsSL https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh)"
 # Revisar o editar script
 $ wget https://raw.githubusercontent.com/adhoc-dev/ansible/master/launch_project.sh
